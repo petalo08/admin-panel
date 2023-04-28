@@ -1,13 +1,16 @@
 import React from 'react'
 import Sidebar from './Sidebar'
+import Header from "./Header"
 const Layout = ( {children}) => {
   return (
-    <div className='h-screen flex flex-row justify-start '>
-        <Sidebar />
-        <div className='bg-gray-200 flex-1 py-4 px-64 text-black'>
-          {children}
+   <div className=' flex flex-row '>
+        <div> <Sidebar/></div>
+         <div className='flex flex-col flex-1 '> 
+         <div><Header/></div>
+          <div className='p-2 m'>{children}</div>
         </div>
-    </div>
+   </div>
+    
   )
 }
 
