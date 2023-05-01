@@ -63,7 +63,7 @@ function Payments() {
                   <td>{row.name}</td>
                   <td>{row.serviceName}</td>
                   <td>{row.date}</td>
-                  <td className='flex justify-between items-center'>
+                  <td className='flex justify-evenly items-center'>
                     <FaTrashAlt
                       className="hover:text-red-500 hover:ease-out  rounded-md cursor-pointer"
                       // onClick={() => handleDeleteClick(row)}
