@@ -3,10 +3,12 @@ import React,{useState} from 'react'
 import { FaSearch, FaTrashAlt, FaEdit } from "react-icons/fa";
 
 import Layout from "../components/Layout"
+import Modal from '../components/Modal';
 function TeamMembers() {
 
-  const [showModal, setShowModal] = useState(false);
-  const [selectedRow, setSelectedRow] = useState(null);
+  const [showMyModal, setShowMyModal] = useState(false);
+  const handekOnClose = () => setShowMyModal(false);
+ 
 
 
   const data = [
@@ -17,10 +19,7 @@ function TeamMembers() {
     { sNo: 5, name: "Jane", serviceName: "Service 5", date: "b-101" },
   ];
 
-  const handleViewClick = (row) => {
-    setSelectedRow(row);
-    setShowModal(true);
-  };
+ 
 
   // const handleDeleteClick = (row) => {
   //   setData(data.filter((r) => r.sNo !== row.sNo));
@@ -55,7 +54,7 @@ function TeamMembers() {
               </div>
            </div>
             </div>
-            <button className='p-2 bg-red-400 rounded-md cursor-pointer hover:ease-in text-white'>Add Members</button>
+            <button onClick={() => setShowMyModal(true)} className='p-2 bg-red-400 rounded-md cursor-pointer hover:ease-in text-white'>Add Members</button>
            </div>
            
 
@@ -80,10 +79,12 @@ function TeamMembers() {
                   <td>{row.date}</td>
                   <td className='flex justify-evenly'>
                     <FaTrashAlt
-                      className="hover:text-red-500 hover:ease-out  rounded-md cursor-pointer"
+                      className="hover:text-red-500 hover:ease-out  rounded-md cursor-pointer  "
                       // onClick={() => handleDeleteClick(row)}
                     />
+                   
                     <span> / </span>
+                    
                     <FaEdit
                       className="hover:text-blue-500 hover:ease-out rounded-md cursor-pointer"
                       onClick={() => handleEditClick(row)}
@@ -95,38 +96,12 @@ function TeamMembers() {
           </table>
 
 
-      {showModal && (
-        <div className="modal ">
-          <div className="modal-content flex flex-col gap-4 items-center">
-            <h2 className='bg-white p-2 rounded-md'>View Row</h2>
-            <form className='flex text-center items-center'>
-              <label>
-                S.No:
-                <input className='p-2 rounded-md ' type="text" value={selectedRow.sNo} readOnly />
-              </label>
-              <label>
-                Name:
-                <input className='p-2 rounded-md ' type="text" value={selectedRow.name} readOnly />
-              </label>
-              <label>
-                Service Name:
-                <input className='p-2 rounded-md ' type="text" value={selectedRow.serviceName} readOnly />
-              </label>
-              <label className='p-2'>
-                Date:
-                <input className='p-2 rounded-md '
-                type="text" value={selectedRow.date} readOnly />
-              </label>
-              <button className='bg-white p-2 rounded-md hover:bg-slate-200'
-              onClick={() => setShowModal(false)}>Close</button>
-            </form>
-          </div>
-        </div>
-      )}
-    </div>
+
 
                        
-             
+             </div>
+             <Modal onClose={handekOnClose} visible={showMyModal}/>
+
         </div>
          </Layout>
   )
