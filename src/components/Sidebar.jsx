@@ -4,6 +4,8 @@ import {GiHamburgerMenu} from "react-icons/gi"
 import {GiArrowDunk} from "react-icons/gi"
 import { FaHome, FaUser, FaEnvelope, FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 
 
 
@@ -37,9 +39,12 @@ function Sidebar() {
           { id: 9, icon:null, name: 'Commercials', link: '/commercials' },
       ];
 
+      const router = useRouter();
+
       const handleSetActivePage = (page) => {
-        setActivePage(page)
-      }
+        setActivePage(page);
+        };
+      
 
   return (
     <div>
@@ -54,7 +59,13 @@ function Sidebar() {
               <ul>
                 {sidebarItems.map(item => (
                   <li key={item.id} className="">
-                    <Link href={item.link} className={`hover:bg-gray-900 rounded-md ease-in block px-4 py-2 text-gray-800 hover:text-white flex justify-between items-center ${activePage === item.link ? 'bg-gray-900 text-white' : ''}`} onClick={() => { handleSetActivePage(item.link); item.subItems && toggleContacts() }}>
+                    <Link href={item.link} className={`hover:bg-gray-900 rounded-md ease-in block px-4 py-2 text-gray-800 hover:text-white flex justify-between items-center  ${router.pathname === item.link ? 'bg-gray-100 text-gray-900' : ''}`}
+  onClick={() => { 
+    handleSetActivePage(item.link);  item.subItems && toggleContacts() }}>
+                      
+                      
+                      
+                      
                       <span>{item.name}</span>
                       {item.icon}
                     </Link>

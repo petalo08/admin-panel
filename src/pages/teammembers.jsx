@@ -78,7 +78,7 @@ function TeamMembers() {
                   <td>{row.name}</td>
                   <td>{row.serviceName}</td>
                   <td>{row.date}</td>
-                  <td className='flex justify-between'>
+                  <td className='flex justify-evenly'>
                     <FaTrashAlt
                       className="hover:text-red-500 hover:ease-out  rounded-md cursor-pointer"
                       // onClick={() => handleDeleteClick(row)}
