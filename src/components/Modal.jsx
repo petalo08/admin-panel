@@ -1,40 +1,41 @@
 import React from "react";
 
-export default function Modal({visible, onClose}) {
-
-    const handelOnClose = () => {  }; 
-    if (!visible) return null ; 
+export default function Modal({ visible, onClose }) {
+  const handelOnClose = () => {};
+  if (!visible) return null;
   return (
-    <div 
-    onClick={handelOnClose}
-    className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
-      <div className="bg-white p-2 rounded w-72 ">
-        <div className="flex flex-row gap-5">
-        <h1 className="font-semibold text-center text-xl text-gray-700 pl-8">
-          Insert a New Member
-          
-        </h1>
-        <button onClick={onClose} className="  pl-3 rounded-full hover:text-red-500  ">X</button>
+    <div
+      onClick={handelOnClose}
+      className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center"
+    >
+      <div className="bg-white p-2 rounded w-full sm:w-96">
+        <div className="flex flex-row justify-between items-center mb-5">
+          <h1 className="font-semibold text-center text-xl text-gray-700">
+            Insert a New Member
+          </h1>
+          <button
+            onClick={onClose}
+            className="p-2 rounded-full hover:text-red-500"
+          >
+            X
+          </button>
         </div>
-        
         <p className="text-center text-gray-700 mb-5">Member Details</p>
-        
-
         <div className="flex flex-col">
           <input
             type="text"
-            className="border border-gray-700 p-2 rounded mb-5"
+            className="border border-gray-700 p-2 rounded mb-3"
             placeholder="Name of the member"
           />
           <input
             type="text"
-            className="border border-gray-700 p-2 rounded mb-5"
-            placeholder="position"
+            className="border border-gray-700 p-2 rounded mb-3"
+            placeholder="Position"
           />
-           <input
+          <input
             type="text"
             className="border border-gray-700 p-2 rounded mb-5"
-            placeholder="flat number"
+            placeholder="Flat number"
           />
         </div>
         <div className="text-center">
