@@ -7,7 +7,6 @@ function ImageUploader() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
         if (!file) return
 
         const path = `${file.name}`
