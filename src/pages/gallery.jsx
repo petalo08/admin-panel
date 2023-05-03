@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from "react";
 import Layout from "../components/Layout"
 import Image from 'next/image';
 import { FiSearch } from 'react-icons/fi';
+import GalleryModal from "../components/GalleryModal"
 
 
 const images = [
@@ -16,7 +17,12 @@ const images = [
 ];
 
 
-function gallery() {
+function Gallery() {
+
+
+  const [showMyModal, setShowMyModal] = useState(false);
+  const handekOnClose = () => setShowMyModal(false);
+
   return (
     <Layout>
     <div className="flex flex-col md:pl-2 lg:pl-40 xl:pl-60">
@@ -40,7 +46,9 @@ function gallery() {
               <FiSearch className="h-6 w-6" />
             </button>
           </div>
-          <button className="p-2 bg-red-300 cursor-pointer rounded-md text-white">
+          <button 
+          onClick={() => setShowMyModal(true)}
+          className="p-2 bg-red-300 cursor-pointer rounded-md text-white">
             Upload Image
           </button>
         </div>
@@ -69,10 +77,13 @@ function gallery() {
           ))}
         </div>
       </div>
+
+      <GalleryModal onClose={handekOnClose} visible={showMyModal} />
+
     </div>
   </Layout>
   
   )
 }
 
-export default gallery
+export default Gallery
