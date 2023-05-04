@@ -10,13 +10,13 @@ function ImageUploader() {
         if (!file) return
 
         const path = `${file.name}`
-        const { data, error } = await supabase.storage.from('property_images').upload(path, file)
+        const { data, error } = await supabase.storage.from('images').upload(path, file)
 
         if (error) {
             console.error(error)
         } else {
             console.log('File uploaded successfully:', data)
-            const { data: url, error: err } = supabase.storage.from('gallery').getPublicUrl(path)
+            const { data: url, error: err } = supabase.storage.from('images').getPublicUrl(path)
             console.log(url)
         }
     }
