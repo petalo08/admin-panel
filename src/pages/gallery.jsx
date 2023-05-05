@@ -55,6 +55,7 @@ function Gallery() {
     catch (err) {
       console.error(err)
     }
+  }
     useEffect(() => {
       handleFetchGalleryData()
     }, [])
@@ -117,6 +118,6 @@ function Gallery() {
 
     )
   }
-}
+
 
 export default Gallery
