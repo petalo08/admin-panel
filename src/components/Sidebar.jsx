@@ -5,6 +5,7 @@ import {GiArrowDunk} from "react-icons/gi"
 import { FaHome, FaUser, FaEnvelope, FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { AiOutlineClose } from 'react-icons/ai';
 
 
 
@@ -49,12 +50,21 @@ function Sidebar() {
   return (
     <div>
        <Disclosure as="nav">
-        <Disclosure.Button className="absolute top-4 right-4 inline-flex items center peer justify-center rounded-md p-2 text-gray-900 hover:text-white hover:bg-gray-900  ">
+        <Disclosure.Button className="absolute top-4 left-40 inline-flex items center peer justify-center rounded-md p-2 text-gray-900 hover:text-white hover:bg-gray-900  ">
           <GiHamburgerMenu className="block md:hidden f-6 w-6" aria-hidden="true" />
         </Disclosure.Button>
-        <div className="p-6 w-1/2 h-screen bg-lime-200 z-20 fixed top-0 -left-96 lg:w-60 lg:left-0 peer-focus:left-0 peer:transition ease-out delay-150 duration-200 ">
+        <div className="p-6 sm:w-1/3 md:w-1/5  h-screen bg-lime-200 z-20 fixed top-0 -left-full md:left-0  peer-focus:left-0 peer:transition ease-out delay-150 duration-200 ">
+        <button
+              
+              className="  rounded-full hover:text-red-500 border border-gray-500 hover:border-red-500 text-gray-500 absolute top-1 right-1 md:hidden"
+            >
+              <AiOutlineClose />
+            </button>
           <div className="flex flex-col justify-start items-center">
-            <h1 className="text-base text-center cursor-pointer font bold text-blue-900 border-b border-gray-100 pb-4 w-full">My dashboard</h1>
+            <h1 className="text-base text-center cursor-pointer font bold text-blue-900 border-b border-gray-100 pb-4 w-full">
+              My dashboard
+              
+              </h1>
             <div className="my-6">
               <ul>
                 {sidebarItems.map(item => (

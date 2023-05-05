@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <header className="bg-sky-100 ">
-      <div className="container mx-auto flex justify-between items-center px-4 py-2 md:pl-2 lg:pl-40 xl:pl-60 ">
+      <div className="container mx-auto flex justify-between items-center px-4 py-2 md:pl-40 lg:pl-52 xl:pl-60 ">
         <div className="flex items-center">
         <h1>Logo</h1>
          
