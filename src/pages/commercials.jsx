@@ -12,7 +12,6 @@ export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
   const token = req.cookies.authToken;
   const user = JSON.parse(req.cookies.user)
-  console.log(user)
   if (!token) {
     return {
       redirect: {
@@ -24,7 +23,7 @@ export async function getServerSideProps(ctx) {
   if (user.role == "user") {
     return {
       redirect: {
-        destination: "/",
+        destination: `/`,
         permanent: false,
       },
     };

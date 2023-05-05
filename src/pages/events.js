@@ -28,7 +28,7 @@ export async function getServerSideProps(ctx) {
                 destination: "/",
                 permanent: false,
             },
-        };
+        }
     }
     return {
         props: {},

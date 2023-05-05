@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout"
+import BaseLayout from "../layout/BaseLayout"
 import Image from 'next/image';
 import { FiSearch } from 'react-icons/fi';
 import GalleryModal from "../components/GalleryModal"
@@ -61,7 +61,7 @@ function Gallery() {
     }, [])
 
     return (
-      <Layout>
+      <BaseLayout>
         <div className="flex flex-col md:pl-2 lg:pl-40 xl:pl-60">
           <div className="container mx-auto px-4 lg:px-8 py-16">
             <div className="flex justify-between items-center py-4 gap-2">
@@ -114,10 +114,35 @@ function Gallery() {
           <GalleryModal onClose={handleOnClose} visible={showMyModal} />
 
         </div>
-      </Layout>
+      </BaseLayout>
 
     )
   }
 
 
 export default Gallery
+
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  const token = req.cookies.authToken;
+  const user = JSON.parse(req.cookies.user)
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  if (user.role == "user") {
+    return {
+      redirect: {
+        destination: `/`,
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+}

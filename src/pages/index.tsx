@@ -1,10 +1,7 @@
+import BaseLayout from '../layout/BaseLayout'
 
-import { Inter } from 'next/font/google'
-import Layout from '../components/Layout'
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
+export default function Home(props: any) {
   return (
-   <Layout>Home</Layout>
+    <BaseLayout>Home</BaseLayout>
   )
 }
