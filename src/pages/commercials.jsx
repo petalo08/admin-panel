@@ -11,8 +11,7 @@ export default commercials
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
   const token = req.cookies.authToken;
-  const user = req.cookies.user 
-  
+  const user = JSON.parse(req.cookies.user)
   if (!token) {
     return {
       redirect: {
@@ -21,16 +20,15 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-  // if(user.role == "user")
-  // {
-    
-  //   return {
-  //     redirect: {
-  //       destination: "/",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  if (user.role == "user") {
+    console.log(user)
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   return {
     props: {},
   };
