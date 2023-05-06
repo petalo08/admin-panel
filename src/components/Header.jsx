@@ -1,12 +1,51 @@
 import { useRouter } from "next/router";
 import { FiHome, FiLogOut } from "react-icons/fi";
-
+import { useState } from "react";
+import { useToast } from "@chakra-ui/react";
 const Header = () => {
-  const router = useRouter();
+  const router = useRouter()
+  const toast  = useToast()
 
-  const handleLogout = () => {
-    // logout logic
-  };
+    
+    const [loading, setLoading] = useState(false);
+
+
+  const handleLogout = async () => {
+    try {
+        setLoading(true)
+        const token = cookie.authToken;
+        let body = {
+            token: token,
+        };
+        const res = await signout(body);
+        if (res.data.status) {
+            toast({
+                title: "Logout",
+                description: res.data.message,
+                status: "success",
+                duration: 2000,
+                isClosable: true,
+                position: "top-right",
+            })
+            removeCookie("authToken", {
+                path: "/",
+                sameSite: true,
+            })
+            setLoading(false)
+            router.push("/login")
+        }
+    } catch (err) {
+        setLoading(false)
+        return toast({
+            title: "Error while logging out",
+            description: err.response.data.message,
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+            position: "top-right",
+        })
+    }
+}
 
   return (
     <header className="bg-slate-500 container mx-auto 

@@ -122,27 +122,27 @@ function Gallery() {
 
 export default Gallery
 
-export async function getServerSideProps(ctx) {
-  const { req, res } = ctx;
-  const token = req.cookies.authToken;
-  const user = JSON.parse(req.cookies.user)
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-  if (user.role == "user") {
-    return {
-      redirect: {
-        destination: `/`,
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: {},
-  };
-}
+// export async function getServerSideProps(ctx) {
+//   const { req, res } = ctx;
+//   const token = req.cookies.authToken;
+//   const user = JSON.parse(req.cookies.user)
+//   if (!token) {
+//     return {
+//       redirect: {
+//         destination: "/login",
+//         permanent: false,
+//       },
+//     };
+//   }
+//   if (user.role == "user") {
+//     return {
+//       redirect: {
+//         destination: `/`,
+//         permanent: false,
+//       },
+//     };
+//   }
+//   return {
+//     props: {},
+//   };
+// }

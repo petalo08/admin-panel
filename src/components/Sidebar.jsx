@@ -18,27 +18,27 @@
 //     setShowContacts(!showContacts);
 //   };
 
-//   const sidebarItems = [
-//     { id: 1, icon: null, name: 'Team Members', link: '/teammembers' },
-//     { id: 2, icon: null, name: 'Gallery', link: '/gallery' },
-//     { id: 3, icon: null, name: 'HeroSection', link: '/hero' },
-//     { id: 4, icon: null, name: 'Payments', link: '/payments' },
+  // const sidebarItems = [
+  //   { id: 1, icon: null, name: 'Team Members', link: '/teammembers' },
+  //   { id: 2, icon: null, name: 'Gallery', link: '/gallery' },
+  //   { id: 3, icon: null, name: 'HeroSection', link: '/hero' },
+  //   { id: 4, icon: null, name: 'Payments', link: '/payments' },
 
-//     {
-//       id: 5,
-//       name: 'Contacts',
-//       link: '/contacts',
-//       icon: showContacts ? <FaAngleUp /> : <FaAngleDown />,
-//       subItems: [
-//         { id: 4, name: 'Email', link: '/contacts/email' },
-//         { id: 5, name: 'Phone', link: '/contacts/phone' },
-//       ],
-//     },
-//     { id: 6, icon: null, name: 'Admin', link: '/admin' },
-//     { id: 7, icon: null, name: 'Users', link: '/nearby' },
-//     { id: 8, icon: null, name: 'Awards & Media', link: '/prime' },
-//     { id: 9, icon: null, name: 'Commercials', link: '/commercials' },
-//   ];
+  //   {
+  //     id: 5,
+  //     name: 'Contacts',
+  //     link: '/contacts',
+  //     icon: showContacts ? <FaAngleUp /> : <FaAngleDown />,
+  //     subItems: [
+  //       { id: 4, name: 'Email', link: '/contacts/email' },
+  //       { id: 5, name: 'Phone', link: '/contacts/phone' },
+  //     ],
+  //   },
+  //   { id: 6, icon: null, name: 'Admin', link: '/admin' },
+  //   { id: 7, icon: null, name: 'Users', link: '/nearby' },
+  //   { id: 8, icon: null, name: 'Awards & Media', link: '/prime' },
+  //   { id: 9, icon: null, name: 'Commercials', link: '/commercials' },
+  // ];
 
 //   const router = useRouter();
 
@@ -154,6 +154,11 @@ const sidebarItems = [
   {
     name: "Commercials",
     href: "/commercials",
+    icon: FiMail,
+  },
+  {
+    name: "Gallery",
+    href: "/gallery",
     icon: FiMail,
   },
 ]

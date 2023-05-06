@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 
 import { FaSearch, FaTrashAlt, FaEdit } from "react-icons/fa";
 
-import Layout from "../components/Layout"
+import BaseLayout from "../layout/BaseLayout"
 import Modal from '../components/Modal';
 function TeamMembers() {
 
@@ -37,7 +37,7 @@ function TeamMembers() {
 
   
 
-    <Layout>
+    <BaseLayout>
   <div className="flex flex-col md:pl-40 lg:pl-52 xl:pl-60 h-full">
     <div className="flex justify-between items-center px-4 md:px-10 lg:px-20 py-3">
       <div className="flex flex-row justify-between gap-2 w-full md:w-auto">
@@ -100,7 +100,7 @@ function TeamMembers() {
 
     <Modal onClose={handekOnClose} visible={showMyModal} />
   </div>
-</Layout>
+</BaseLayout >
 
   
   )

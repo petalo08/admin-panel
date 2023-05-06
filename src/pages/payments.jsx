@@ -3,7 +3,7 @@ import React,{useState} from 'react'
 
 import { FaSearch, FaTrashAlt, FaEdit } from "react-icons/fa";
 
-import Layout from "../components/Layout"
+import BaseLayout from "../layout/BaseLayout"
 function Payments() {
 
   const [showModal, setShowModal] = useState(false);
@@ -23,8 +23,8 @@ function Payments() {
   };
 
   return (
-    <Layout>
-        <div className=' flex flex-col md:pl-2 lg:pl-40 xl:pl-60 w-full' >
+    <BaseLayout>
+        <div className=' flex flex-col  w-full' >
 
         <div className="flex justify-between gap-2 items-center    px-48">
            
@@ -110,7 +110,7 @@ function Payments() {
                        
              
         </div>
-    </Layout>
+    </BaseLayout>
   )
 }
 
