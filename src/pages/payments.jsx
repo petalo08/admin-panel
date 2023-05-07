@@ -24,92 +24,59 @@ function Payments() {
 
   return (
     <BaseLayout>
-      <div className=' flex flex-col  w-full' >
-
-        <div className="flex justify-between gap-2 items-center    px-48">
-
-          <div className='flex flex-row justify-between py-3'>
-            <div className='flex flex-row justify-end  gap-2 ' >
-              <input
-                type="text"
-                placeholder="Search..."
-                className=" px-8 py-2 w-[500px] outline-1 bg-green-200 text-black focus:outline-black rounded-md tracking-wide"
-              />
-              <div className=" bg-red-400 p-4  rounded-full cursor-pointer">
-                <FaSearch className="text-white " />
-              </div>
-            </div>
-          </div>
-
+      <div className='flex flex-col w-full min-h-screen'>
+  <div className="flex justify-between items-center  bg-gray-100 md:px-10 lg:px-20">
+    <div className='flex flex-row justify-between py-3 w-full md:w-auto'>
+      <div className='flex flex-row justify-end gap-2'>
+        <input
+          type="text"
+          placeholder="Search..."
+          className="px-2 py-1 text-xs w-full rounded-md md:text-base lg:w-96"
+        />
+        <div className="bg-red-400 p-2 rounded-full cursor-pointer">
+          <FaSearch className="text-white" />
         </div>
-
-
-        {/* {table } */}
-        <div className="bg-red-200 p-4 px-20 text-center flex flex-col gap-10 ">
-          <table>
-            <thead>
-              <tr>
-                <th>S.No</th>
-                <th>Name</th>
-                <th>Service Name</th>
-                <th>Date</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((row) => (
-                <tr key={row.sNo}>
-                  <td>{row.sNo}</td>
-                  <td>{row.name}</td>
-                  <td>{row.serviceName}</td>
-                  <td>{row.date}</td>
-                  <td className='flex justify-evenly items-center'>
-                    <FaTrashAlt
-                      className="hover:text-red-500 hover:ease-out  rounded-md cursor-pointer"
-                    // onClick={() => handleDeleteClick(row)}
-                    />
-                    <span> / </span>
-                    <button className='hover:bg-slate-300 p-2 rounded-md' onClick={() => handleViewClick(row)}>View</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-
-          {showModal && (
-            <div className="modal ">
-              <div className="modal-content flex flex-col gap-4 items-center">
-                <h2 className='bg-white p-2 rounded-md'>View Row</h2>
-                <form className='flex text-center items-center'>
-                  <label>
-                    S.No:
-                    <input className='p-2 rounded-md ' type="text" value={selectedRow.sNo} readOnly />
-                  </label>
-                  <label>
-                    Name:
-                    <input className='p-2 rounded-md ' type="text" value={selectedRow.name} readOnly />
-                  </label>
-                  <label>
-                    Service Name:
-                    <input className='p-2 rounded-md ' type="text" value={selectedRow.serviceName} readOnly />
-                  </label>
-                  <label className='p-2'>
-                    Date:
-                    <input className='p-2 rounded-md '
-                      type="text" value={selectedRow.date} readOnly />
-                  </label>
-                  <button className='bg-white p-2 rounded-md hover:bg-slate-200'
-                    onClick={() => setShowModal(false)}>Close</button>
-                </form>
-              </div>
-            </div>
-          )}
-        </div>
-
-
-
       </div>
+    </div>
+  </div>
+
+  <div className="flex flex-col flex-grow py-4 px-4 md:px-10 lg:px-20">
+    <div className="overflow-x-auto">
+      <table className='w-full table-auto'>
+        <thead className='bg-gray-200'>
+          <tr>
+            <th className='py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider md:text-sm '>S.No</th>
+            <th className='py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider md:text-sm'>Name</th>
+            <th className='py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider md:text-sm'>Service Name</th>
+            <th className='py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider md:text-sm'>Date</th>
+            <th className='py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider md:text-sm'>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row) => (
+            <tr key={row.sNo}>
+              <td className='py-2 text-sm text-gray-500 text-center'>{row.sNo}</td>
+              <td className='py-2 text-sm text-gray-500 text-center'>{row.name}</td>
+              <td className='py-2 text-sm text-gray-500 text-center'>{row.serviceName}</td>
+              <td className='py-2 text-sm text-gray-500 text-center'>{row.date}</td>
+              <td className='py-2 text-sm text-gray-500 flex justify-evenly items-center'>
+                <FaTrashAlt
+                  className="hover:text-red-500 rounded-md cursor-pointer "
+                  // onClick={() => handleDeleteClick(row)}
+                />
+                
+                <button className='hover:bg-gray-300 p-2 rounded-md md:text-sm' onClick={() => handleViewClick(row)}>View</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+</div>
+
+
     </BaseLayout>
   )
 }
