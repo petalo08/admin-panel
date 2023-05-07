@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from 'react-icons/ai';
 import { supabase } from "../utils/supabaseClient";
-import { updateGalleryById } from "../api/gallery";
+import { getGalleryById, updateGalleryById } from "../api/gallery";
+import { useToast } from "@chakra-ui/react";
 
 export default function Modal({ visible, onClose }) {
 
-  const handelOnClose = () => { };
+  const handelOnClose = () => { }
+  const toast = useToast()
   const [image, setImage] = useState(null)
+  const [images, setImages] = useState([])
   const [fl, setFl] = useState(null)
   const [altText, setAltText] = useState("")
 
-  const handleGetGallery = async () => {
-    try { }
+  const handleFetchGalleryData = async () => {
+    try {
+      const res = await getGalleryById()
+      if (res.data) {
+        setImages(res.data.data.images)
+      }
+    }
     catch (err) {
-      console.error(err)
+      console.log(err)
     }
   }
   const handleUpdateGallery = async () => {
     try {
       let body = {
-        images: []
+        images: images
       }
       const res = await updateGalleryById(body)
+      if (res.status === 200) {
+        alert("Updated successfully")
+      }
     }
     catch (err) {
       console.error(err)
@@ -58,11 +69,32 @@ export default function Modal({ visible, onClose }) {
     } else {
       console.log('File uploaded successfully:', data)
       const { data: url, error: err } = supabase.storage.from('images').getPublicUrl(path)
-      console.log(url)
+      if (err) {
+        console.error(err)
+        return
+      }
+      const newImage = {
+        url: url.publicUrl,
+        alt: altText
+      }
+      setImages([...images, newImage])
+      setImage(null)
+      setFl(null)
+      setAltText("")
+      const res2 = await updateGalleryById({ images: [...images, newImage] })
+      if (res2.status === 200) {
+        console.log("Updated successfully")
+        toast({
+          title: "Image uploaded successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        })
+      }
     }
   }
   useEffect(() => {
-    handleGetGallery()
+    handleFetchGalleryData()
   }, [])
   if (!visible) return null;
 

@@ -1,5 +1,5 @@
 
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 
 import { FaSearch, FaTrashAlt, FaEdit } from "react-icons/fa";
 
@@ -24,28 +24,28 @@ function Payments() {
 
   return (
     <BaseLayout>
-        <div className=' flex flex-col  w-full' >
+      <div className=' flex flex-col  w-full' >
 
         <div className="flex justify-between gap-2 items-center    px-48">
-           
-           <div className='flex flex-row justify-between py-3'>
-           <div className='flex flex-row justify-end  gap-2 ' >
-           <input
-               type="text"
-            placeholder="Search..."
-                   className=" px-8 py-2 w-[500px] outline-1 bg-green-200 text-black focus:outline-black rounded-md tracking-wide"
-              />
-           <div className=" bg-red-400 p-4  rounded-full cursor-pointer">
-              <FaSearch className="text-white " />
-              </div>
-           </div>
-            </div>
-            
-           </div>
-           
 
-                       {/* {table } */}
-                       <div className="bg-red-200 p-4 px-20 text-center flex flex-col gap-10 ">
+          <div className='flex flex-row justify-between py-3'>
+            <div className='flex flex-row justify-end  gap-2 ' >
+              <input
+                type="text"
+                placeholder="Search..."
+                className=" px-8 py-2 w-[500px] outline-1 bg-green-200 text-black focus:outline-black rounded-md tracking-wide"
+              />
+              <div className=" bg-red-400 p-4  rounded-full cursor-pointer">
+                <FaSearch className="text-white " />
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        {/* {table } */}
+        <div className="bg-red-200 p-4 px-20 text-center flex flex-col gap-10 ">
           <table>
             <thead>
               <tr>
@@ -66,7 +66,7 @@ function Payments() {
                   <td className='flex justify-evenly items-center'>
                     <FaTrashAlt
                       className="hover:text-red-500 hover:ease-out  rounded-md cursor-pointer"
-                      // onClick={() => handleDeleteClick(row)}
+                    // onClick={() => handleDeleteClick(row)}
                     />
                     <span> / </span>
                     <button className='hover:bg-slate-300 p-2 rounded-md' onClick={() => handleViewClick(row)}>View</button>
@@ -77,39 +77,39 @@ function Payments() {
           </table>
 
 
-      {showModal && (
-        <div className="modal ">
-          <div className="modal-content flex flex-col gap-4 items-center">
-            <h2 className='bg-white p-2 rounded-md'>View Row</h2>
-            <form className='flex text-center items-center'>
-              <label>
-                S.No:
-                <input className='p-2 rounded-md ' type="text" value={selectedRow.sNo} readOnly />
-              </label>
-              <label>
-                Name:
-                <input className='p-2 rounded-md ' type="text" value={selectedRow.name} readOnly />
-              </label>
-              <label>
-                Service Name:
-                <input className='p-2 rounded-md ' type="text" value={selectedRow.serviceName} readOnly />
-              </label>
-              <label className='p-2'>
-                Date:
-                <input className='p-2 rounded-md '
-                type="text" value={selectedRow.date} readOnly />
-              </label>
-              <button className='bg-white p-2 rounded-md hover:bg-slate-200'
-              onClick={() => setShowModal(false)}>Close</button>
-            </form>
-          </div>
+          {showModal && (
+            <div className="modal ">
+              <div className="modal-content flex flex-col gap-4 items-center">
+                <h2 className='bg-white p-2 rounded-md'>View Row</h2>
+                <form className='flex text-center items-center'>
+                  <label>
+                    S.No:
+                    <input className='p-2 rounded-md ' type="text" value={selectedRow.sNo} readOnly />
+                  </label>
+                  <label>
+                    Name:
+                    <input className='p-2 rounded-md ' type="text" value={selectedRow.name} readOnly />
+                  </label>
+                  <label>
+                    Service Name:
+                    <input className='p-2 rounded-md ' type="text" value={selectedRow.serviceName} readOnly />
+                  </label>
+                  <label className='p-2'>
+                    Date:
+                    <input className='p-2 rounded-md '
+                      type="text" value={selectedRow.date} readOnly />
+                  </label>
+                  <button className='bg-white p-2 rounded-md hover:bg-slate-200'
+                    onClick={() => setShowModal(false)}>Close</button>
+                </form>
+              </div>
+            </div>
+          )}
         </div>
-      )}
-    </div>
 
-                       
-             
-        </div>
+
+
+      </div>
     </BaseLayout>
   )
 }
