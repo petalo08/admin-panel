@@ -4,7 +4,12 @@ import { FaSearch, FaTrashAlt, FaEdit } from "react-icons/fa";
 
 import BaseLayout from "../layout/BaseLayout"
 import Modal from '../components/Modal';
-function TeamMembers() {
+import { getAllTeamMembers } from '../api/teamMember';
+function TeamMembers(props) {
+  const {
+    teamMembers
+  } = props
+  console.log(teamMembers)
 
   const [showMyModal, setShowMyModal] = useState(false);
   const handekOnClose = () => setShowMyModal(false);
@@ -29,9 +34,6 @@ function TeamMembers() {
     // implement your edit functionality here
     console.log("Edit row: ", row);
   };
-
-
-
 
   return (
     <BaseLayout>
@@ -82,7 +84,6 @@ function TeamMembers() {
                         className="hover:text-red-500 hover:ease-out rounded-md cursor-pointer"
                       // onClick={() => handleDeleteClick(row)}
                       />
-
                       <FaEdit
                         className="hover:text-blue-500 hover:ease-out rounded-md cursor-pointer"
                         onClick={() => handleEditClick(row)}
@@ -117,15 +118,29 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-  if (user.role == "user") {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
+  // if (user.role == "user") {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   }
+  // }
+  try {
+    const res = await getAllTeamMembers()
+    if (res.status == 200) {
+      return {
+        props: {
+          teamMembers: res.data.data
+        },
+      };
     }
   }
-  return {
-    props: {},
-  };
+  catch (err) {
+    return {
+      props: {
+        teamMembers: []
+      },
+    };
+  }
 }
