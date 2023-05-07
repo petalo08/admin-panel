@@ -6,7 +6,6 @@ import ContentLayout from "./ContentLayout";
 const BaseLayout = ({ children }) => {
     return (
         <Box>
-
             <div className="layout">
                 <Sidebar />
                 <main className="layout__main-content">

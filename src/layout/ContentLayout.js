@@ -10,7 +10,7 @@ function ContentLayout({ children, ...props }) {
             p={5}
             w={isCollapsed ? '100%' : '85vw'}
             h='100vh'
-            bg={'red.700'}
+            bg={'red.50'}
             __css={{
                 overflowY: 'scroll',
                 overflowX: 'hidden',
