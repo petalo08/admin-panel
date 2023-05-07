@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-
-import { FaSearch, FaTrashAlt, FaEdit } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 import BaseLayout from "../layout/BaseLayout"
 import Modal from '../components/Modal';
@@ -39,25 +38,11 @@ function TeamMembers(props) {
 
   return (
     <BaseLayout>
-      <Stack align='flex-end'>
+      <Stack p={2} m={2} align='flex-end' pos='sticky' top={0}>
         <Button onClick={() => setShowMyModal(true)}>
           Add a member
         </Button>
       </Stack>
-      <div className="flex justify-between items-center px-4 md:px-10 lg:px-20 py-3">
-        <div className="flex flex-row justify-between gap-2 w-full md:w-auto">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="px-4 py-2 w-full md:w-96 outline-1 bg-green-200 text-black focus:outline-black rounded-md tracking-wide"
-          />
-          <div className="bg-red-400 p-4 rounded-full cursor-pointer">
-            <FaSearch className="text-white" />
-          </div>
-        </div>
-        <div className='px-2 '>
-        </div>
-      </div>
       <TeamTable data={teamMembers} />
       <div className="flex flex-col md:pl-40 lg:pl-52 xl:pl-60 h-full">
         <Modal onClose={handekOnClose} visible={showMyModal} />

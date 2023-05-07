@@ -1,13 +1,13 @@
 import React from 'react'
-import Layout from '../components/Layout'
 import AdminUsersTable from '../components/pages/admin/AdminUsersTable'
+import BaseLayout from '../layout/BaseLayout'
 
 function admin() {
     return (
-        <Layout>
+        <BaseLayout>
             <div></div>
             <AdminUsersTable />
-        </Layout>
+        </BaseLayout>
     )
 }
 

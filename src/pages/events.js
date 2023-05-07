@@ -1,9 +1,9 @@
 import React from 'react'
-import Layout from '../components/Layout'
+import BaseLayout from '../layout/BaseLayout';
 
 function events() {
     return (
-        <Layout>events</Layout>
+        <BaseLayout>events</BaseLayout>
     )
 }
 

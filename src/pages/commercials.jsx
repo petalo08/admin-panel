@@ -1,8 +1,9 @@
 import React from 'react'
-import Layout from "../components/Layout"
+import BaseLayout from '../layout/BaseLayout';
+
 function commercials() {
   return (
-    <Layout>commercials</Layout>
+    <BaseLayout>commercials</BaseLayout>
   )
 }
 
