@@ -119,6 +119,11 @@ import { useContext } from "react";
 import { SidebarContext } from "../context/SidebarContext";
 import { useRouter } from "next/router";
 import { Box } from "@chakra-ui/react";
+import { FaUserCircle } from 'react-icons/fa';
+import { RiUserLine } from 'react-icons/ri';
+import { FaPhotoVideo } from 'react-icons/fa';
+import { FaMoneyBillAlt } from "react-icons/fa";
+import { FaRegImages } from "react-icons/fa";
 
 const sidebarItems = [
   {
@@ -139,27 +144,27 @@ const sidebarItems = [
   {
     name: "Admin",
     href: "/admin",
-    icon: FiMail,
+    icon: FaUserCircle,
   },
   {
     name: "Users",
     href: "/nearby",
-    icon: FiMail,
+    icon: RiUserLine,
   },
   {
     name: "Awards & Media",
     href: "/awards",
-    icon: FiMail,
+    icon: FaPhotoVideo,
   },
   {
     name: "Commercials",
     href: "/commercials",
-    icon: FiMail,
+    icon: FaMoneyBillAlt,
   },
   {
     name: "Gallery",
     href: "/gallery",
-    icon: FiMail,
+    icon: FaRegImages,
   },
 ]
 
