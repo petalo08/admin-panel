@@ -119,7 +119,7 @@ import { useContext } from "react";
 import { SidebarContext } from "../context/SidebarContext";
 import { useRouter } from "next/router";
 import { Box } from "@chakra-ui/react";
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle,FaDigitalTachograph } from 'react-icons/fa';
 import { RiUserLine } from 'react-icons/ri';
 import { FaPhotoVideo } from 'react-icons/fa';
 import { FaMoneyBillAlt } from "react-icons/fa";
@@ -166,6 +166,11 @@ const sidebarItems = [
     href: "/gallery",
     icon: FaRegImages,
   },
+  {
+    name: "SEO",
+    href: "/seo",
+    icon: FaDigitalTachograph,
+  }
 ]
 
 const Sidebar = () => {
