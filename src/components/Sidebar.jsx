@@ -148,7 +148,7 @@ const sidebarItems = [
   },
   {
     name: "Users",
-    href: "/nearby",
+    href: "/users",
     icon: RiUserLine,
   },
   {
