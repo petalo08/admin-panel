@@ -14,7 +14,7 @@ import {
 import { HiArrowRight } from 'react-icons/hi'
 import Link from 'next/link'
 import { useCookies } from "react-cookie"
-import { signin,getCurrentUser } from '@/api/auth'
+import { signin, getCurrentUser } from '@/api/auth'
 import { useRouter } from 'next/router'
 
 const Login = () => {

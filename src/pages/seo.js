@@ -1,5 +1,6 @@
 import React from 'react'
 import BaseLayout from '../layout/BaseLayout'
+import { getAllSeo } from '../api/seo';
 
 function seo(props) {
   return (
@@ -30,9 +31,21 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-  try{}
-  catch(err){}
-  return {
-    props: {},
-  };
+  try{
+    const res = await getAllSeo()
+    if(res.status === 200){
+      return {
+        props: {
+          seo: res.data
+        },
+      };
+    }
+  }
+  catch(err){
+    return {
+      props: {
+        seo: []
+      },
+    };
+  }
 }
