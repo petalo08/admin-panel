@@ -1,10 +1,13 @@
 import React from 'react'
 import BaseLayout from '../layout/BaseLayout'
 import { getAllSeo } from '../api/seo';
+import PageCards from '../components/pages/seo/PageCards';
 
 function seo(props) {
+  console.log(props)
   return (
     <BaseLayout>
+      <PageCards data={props?.seo} />
     </BaseLayout>
   )
 }
@@ -31,9 +34,9 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-  try{
+  try {
     const res = await getAllSeo()
-    if(res.status === 200){
+    if (res.status === 200) {
       return {
         props: {
           seo: res.data
@@ -41,7 +44,8 @@ export async function getServerSideProps(ctx) {
       };
     }
   }
-  catch(err){
+  catch (err) {
+    console.log(err)
     return {
       props: {
         seo: []

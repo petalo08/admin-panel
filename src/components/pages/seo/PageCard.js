@@ -1,5 +1,6 @@
 import { Heading, Stack, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import { updateSeoById } from '../../../api/seo'
 
 function PageCard(props) {
   const toast = useToast()
@@ -13,9 +14,10 @@ function PageCard(props) {
       pageName: name
     }
     try {
-      // const res = await
+      const res = await updateSeoById(body)
+      if (res.status === 200) { }
     }
-    catch (err) {}
+    catch (err) { }
   }
   useEffect(() => {
     setName(props.name)
