@@ -2,11 +2,13 @@ import React from 'react'
 import BaseLayout from '../layout/BaseLayout'
 import { getAllSeo } from '../api/seo';
 import PageCards from '../components/pages/seo/PageCards';
+import AddSeoPage from '../components/pages/seo/AddSeoCard';
 
 function seo(props) {
   console.log(props)
   return (
     <BaseLayout>
+    <AddSeoPage />
       <PageCards data={props?.seo} />
     </BaseLayout>
   )
