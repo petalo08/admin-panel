@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { createSeo } from '../../../api/seo'
+import { useToast } from '@chakra-ui/react'
 
 function AddSeoCard() {
   const toast = useToast()
@@ -14,7 +15,16 @@ function AddSeoCard() {
     }
     try {
       const res = await createSeo(body)
-      if (res.status === 200) { }
+      if (res.status === 200) {
+        console.log(res.data)
+        toast({
+          title: "Page Created.",
+          description: "We've created a new page for you.",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        })
+      }
     }
     catch (err) { }
   }
