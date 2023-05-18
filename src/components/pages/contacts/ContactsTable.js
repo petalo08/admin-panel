@@ -9,7 +9,9 @@ import {
     TableContainer,
 } from "@chakra-ui/react";
 
-function ContactsTable() {
+function ContactsTable(props) {
+    const {data} = props
+    console.log(data)
     return (
         <div>
             <TableContainer>
