@@ -50,7 +50,7 @@ function Commercials() {
 
   return (
     <BaseLayout>
-      <div className="flex flex-col md:pl-2 lg:pl-40 xl:pl-60">
+      <div className="flex flex-col  ">
         <div className="container mx-auto px-4 lg:px-8 py-16">
           <div className="flex flex-col md:flex-row justify-between items-center py-4 gap-2">
             <div className="flex items-center">
