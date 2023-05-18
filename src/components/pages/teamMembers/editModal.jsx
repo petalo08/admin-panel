@@ -5,6 +5,23 @@ const EditModal = ({ isOpen, onClose }) => {
     const [designation, setDesignation] = useState('');
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
+    const handleImageUpload = (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.webp|\.svg)$/i;
+  
+      if (!allowedExtensions.exec(file.name)) {
+        alert("Error: Please choose a file with a valid image format (jpg, jpeg, png, webp, svg).");
+        event.target.value = "";
+        return;
+      }
+  
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImage(reader.result);
+      };
+      setFl(file)
+    }
   
     const handleDesignationChange = (e) => {
       setDesignation(e.target.value);
