@@ -6,10 +6,11 @@ import AddSeoPage from '../components/pages/seo/AddSeoCard';
 
 function seo(props) {
   console.log(props)
+  const { seo } = props
   return (
     <BaseLayout>
-    <AddSeoPage />
-      <PageCards data={props?.seo} />
+      <AddSeoPage />
+      <PageCards data={seo} />
     </BaseLayout>
   )
 }
@@ -28,7 +29,7 @@ export async function getServerSideProps(ctx) {
     };
   }
   const user = JSON.parse(req.cookies.user)
-  // if (user.role === "user") {
+  // if (user.role === "admin") {
   //   return {
   //     redirect: {
   //       destination: `/`,
@@ -41,13 +42,12 @@ export async function getServerSideProps(ctx) {
     if (res.status === 200) {
       return {
         props: {
-          seo: res.data
+          seo: res.data.data
         },
       };
     }
   }
   catch (err) {
-    console.log(err)
     return {
       props: {
         seo: []

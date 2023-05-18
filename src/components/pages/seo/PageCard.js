@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { updateSeoById } from "../../../api/seo";
 
 function PageCard(props) {
+  const { key, data } = props
   const toast = useToast();
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
@@ -18,14 +19,14 @@ function PageCard(props) {
       const res = await updateSeoById(id, body);
       if (res.status === 200) {
       }
-    } catch (err) {}
+    } catch (err) { }
   };
 
   useEffect(() => {
-    setName(props.name);
-    setTitle(props.title);
-    setDescription(props.description);
-  }, [props.name, props.title, props.description]);
+    setName(data.pageName);
+    setTitle(data.title);
+    setDescription(data.metaDescription);
+  }, [props]);
 
   return (
     <Stack

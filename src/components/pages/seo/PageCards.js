@@ -3,15 +3,15 @@ import React from 'react'
 import PageCard from './PageCard'
 
 function PageCards(props) {
-  const {data} = props
+  const { data } = props
+  console.log(data)
   return (
-    <Stack
-      spacing='40px'
-    >
-      <PageCard />
-      <PageCard />
-      <PageCard />
-      <PageCard />
+    <Stack spacing='40px'>
+      {data.map((item, index) => {
+        return (
+          <PageCard key={index} data={item} />
+        )
+      })}
     </Stack>
   )
 }
