@@ -28,14 +28,14 @@ export async function getServerSideProps(ctx) {
     };
   }
   const user = JSON.parse(req.cookies.user)
-  if (user.role === "user") {
-    return {
-      redirect: {
-        destination: `/`,
-        permanent: false,
-      },
-    };
-  }
+  // if (user.role === "user") {
+  //   return {
+  //     redirect: {
+  //       destination: `/`,
+  //       permanent: false,
+  //     },
+  //   };
+  // }
   try {
     const res = await getAllSeo()
     if (res.status === 200) {

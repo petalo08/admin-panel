@@ -10,8 +10,8 @@ export const getSeoById = async (id) => {
     return res
 }
 
-export const updateSeoById = async (id) => {
-    const res = await API_INSTANCE.patch(`/seo/${id}`)
+export const updateSeoById = async (id, body) => {
+    const res = await API_INSTANCE.patch(`/seo/${id}`, body)
     return res
 }
 

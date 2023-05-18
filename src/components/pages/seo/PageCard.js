@@ -1,4 +1,4 @@
-import { Heading, Stack, useToast } from '@chakra-ui/react'
+import { Button, Heading, Stack, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { updateSeoById } from '../../../api/seo'
 
@@ -14,7 +14,7 @@ function PageCard(props) {
       pageName: name
     }
     try {
-      const res = await updateSeoById(body)
+      const res = await updateSeoById(id, body)
       if (res.status === 200) { }
     }
     catch (err) { }
@@ -30,6 +30,7 @@ function PageCard(props) {
   ])
   return (
     <Stack
+      my={5}
       bg='white'
       boxShadow='md'
       borderRadius='md'
@@ -41,21 +42,25 @@ function PageCard(props) {
         {props.name}
       </Heading>
       <form onSubmit={handleUpdate}>
-        <input
-          value={name}
-          onChange={e => setName(e.target.value)}
-          type='text'
-          placeholder='Page Name'
-        />
-        <input type='text' placeholder='Page Title'
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-        />
-        <input type='text' placeholder='Page Description'
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-        />
-        <input type='submit' value='Update' />
+        <Stack direction='row' justify='space-around'>
+          <input
+            value={name}
+            onChange={e => setName(e.target.value)}
+            type='text'
+            placeholder='Page Name'
+          />
+          <input type='text' placeholder='Page Title'
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+          />
+          <input type='text' placeholder='Page Description'
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+          />
+          <Button variant='outline' colorScheme='blue' type='submit'>
+            Update
+          </Button>
+        </Stack>
       </form>
     </Stack>
   )
