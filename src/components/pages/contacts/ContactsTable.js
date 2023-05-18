@@ -11,7 +11,8 @@ import {
 } from "@chakra-ui/react";
 
 function ContactsTable(props) {
-  const { data } = props;
+  const { data } = props
+  console.log(data) 
 
   return (
     <Box overflowX="auto">
@@ -19,19 +20,19 @@ function ContactsTable(props) {
         <Table variant="simple" width="full">
           <Thead>
             <Tr>
-              <Th>Event Name</Th>
-              <Th>Event Date</Th>
-              <Th>Event Time</Th>
-              <Th>Event Location</Th>
+              <Th>Email</Th>
+              <Th>Message</Th>
+              <Th>Name</Th>
+              <Th>Phone</Th>
             </Tr>
           </Thead>
           <Tbody>
             {data.map((item, index) => (
               <Tr key={index}>
-                <Td>{item.eventName}</Td>
-                <Td>{item.eventDate}</Td>
-                <Td>{item.eventTime}</Td>
-                <Td>{item.eventLocation}</Td>
+                <Td>{item.email}</Td>
+                <Td>{item.message}</Td>
+                <Td>{item.name}</Td>
+                <Td>{item.phone}</Td>
               </Tr>
             ))}
           </Tbody>

@@ -93,14 +93,12 @@ function Gallery() {
                 key={index}
                 className="relative overflow-hidden transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
               >
-                <Image src={image?.url} alt={image?.alt} width={800} height={800} />
+                <Image src={image?.url?.publicUrl} alt={image?.altText} width={800} height={800} />
               </div>
             ))}
           </div>
         </div>
-
         <GalleryModal onClose={handleOnClose} visible={showMyModal} />
-
       </div>
     </BaseLayout>
 
@@ -113,7 +111,6 @@ export default Gallery
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
   const token = req.cookies.authToken;
-  const user = JSON.parse(req.cookies.user)
   if (!token) {
     return {
       redirect: {
@@ -122,14 +119,15 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-  // if (user.role === "user") {
-  //   return {
-  //     redirect: {
-  //       destination: `/`,
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  const user = JSON.parse(req.cookies.user)
+  if (user.role === "user") {
+    return {
+      redirect: {
+        destination: `/`,
+        permanent: false,
+      },
+    };
+  }
   return {
     props: {},
   };
