@@ -25,7 +25,9 @@ function ContactsTable(props) {
                         </Tr>
                     </Thead>
                     <Tbody>
-        
+                        {data.map((item, index) => {
+                            
+                        })}
                     </Tbody>
                 </Table>
             </TableContainer>

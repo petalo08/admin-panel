@@ -5,21 +5,41 @@ import { updateSeoById } from "../../../api/seo";
 function PageCard(props) {
   const { key, data } = props
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleUpdate = async () => {
-    let body = {
-      title: title,
-      metaDescription: description,
-      pageName: name,
-    };
+  const handleUpdate = async (id) => {
     try {
-      const res = await updateSeoById(id, body);
-      if (res.status === 200) {
+      setLoading(true)
+      let body = {
+        title: title,
+        metaDescription: description,
+        pageName: name,
       }
-    } catch (err) { }
+      const res = await updateSeoById(id, body)
+      if (res.status === 200) {
+        toast({
+          title: 'Updated Successfully',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+        setLoading(false)
+      }
+    } catch (err) {
+      setLoading(false)
+      toast({
+        title: 'Something went wrong',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+     }
+     finally {
+      setLoading(false)
+     }
   };
 
   useEffect(() => {
@@ -46,21 +66,18 @@ function PageCard(props) {
             onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="Page Name"
-            p="2"
           />
           <input
             type="text"
             placeholder="Page Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            p="2"
           />
           <input
             type="text"
             placeholder="Page Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            p="2"
           />
           <Button
             variant="outline"
