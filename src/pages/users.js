@@ -4,6 +4,7 @@ import NormalUsersTable from "../components/pages/users/NormalUsersTable";
 import BaseLayout from "../layout/BaseLayout";
 
 function users(props) {
+  console.log(props);
   const { normalUsers } = props
   return (
     <BaseLayout>
@@ -26,14 +27,14 @@ export async function getServerSideProps(ctx) {
     };
   }
   const user = JSON.parse(req.cookies.user);
-  if (user.role == "user") {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+  // if (user.role == "superadmin") {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
   try {
     const res = await getAllNormalUsers()
     // const seo = await getSeoByPageName("teammembers")

@@ -1,0 +1,209 @@
+import React from 'react'
+import {
+    Table, Thead, Tbody,
+    Tr, Th, Td, Input,
+    TableContainer,
+    Stack,
+    useToast,
+    Button,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
+} from "@chakra-ui/react";
+import { AiFillDelete, AiFillEdit, AiFillPlusSquare } from 'react-icons/ai';
+import { deleteUserById, signup, updateUserById } from '../../../api/auth'
+import { withCookies } from 'react-cookie'
+
+function NormalUsersTable(props) {
+    const { data } = props
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen: isOpenEdit, onOpen: onOpenEdit, onClose: onCloseEdit } = useDisclosure()
+
+    const token = props.cookies.get('authToken')
+    const toast = useToast()
+
+    const handleDelete = async (id) => {
+        try {
+            const res = await deleteUserById(token, id)
+            if (res.status === 200) {
+                toast({
+                    title: "Account deleted.",
+                    position: "top-right",
+                    description: "Account deleted successfully",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
+        }
+        catch (err) {
+            console.log(err);
+            toast({
+                title: "Account deleted failed.",
+                position: "top-right",
+                description: "Error deleting your account",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            })
+        }
+    }
+    const handleEdit = async (item) => {
+        try {
+            let body = {
+
+            }
+            const res = await updateUserById(token, item._id, body)
+            if (res.status === 200) {
+                toast({
+                    title: "Account updated.",
+                    position: "top-right",
+                    description: "We've updated your account.",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
+        }
+        catch (err) {
+            console.log(err);
+            toast({
+                title: "Account updated failed.",
+                position: "top-right",
+                description: "We've updated your account.",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            })
+        }
+    }
+    const handleAdd = async () => {
+        try {
+            let body = {
+                name: "",
+                email: "",
+                password: "",
+                picture: ""
+            }
+            const res = await signup(body)
+            if (res.status === 200) {
+                toast({
+                    title: "Account added",
+                    position: "top-right",
+                    description: "We've updated your account.",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                })
+            }
+        }
+        catch (err) {
+            console.log(err);
+            toast({
+                title: "Account addition failed.",
+                position: "top-right",
+                description: "We've updated your account.",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            })
+        }
+    }
+    return (
+        <Stack>
+            <Stack
+                direction="row"
+                align="center"
+                justify="space-between"
+            >
+                <Input
+                    width="40%"
+                    variant="filled"
+
+                    placeholder="Search user by name" />
+                <Button
+                    colorScheme="blue"
+                    variant="solid"
+                    rightIcon={<AiFillPlusSquare />}
+                    onClick={onOpen}
+                >
+                    Add User
+                </Button>
+            </Stack>
+            <Stack></Stack>
+            <TableContainer shadow={'md'}
+                rounded={'md'}>
+                <Table size="lg" variant="simple">
+                    <Thead bg="#e9fffb">
+                        <Tr>
+                            <Th color="black">Name</Th>
+                            <Th color="black">Email</Th>
+                            <Th></Th>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
+                        {data.map((item) => (
+                            <Tr key={item._id}>
+                                <Td>{item.name}</Td>
+                                <Td>{item.email}</Td>
+                                <Td>
+                                    <Stack direction='row' spacing={10}>
+                                        <AiFillEdit
+                                            onClick={onOpenEdit}
+                                        />
+                                        <AiFillDelete
+                                            onClick={() => handleDelete(item._id)}
+                                        />
+                                    </Stack>
+                                </Td>
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </Table>
+            </TableContainer>
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Add User</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <form>
+                            {/* name, email, password,picture */}
+                        </form>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme='blue' mr={3} onClick={onClose}>
+                            Close
+                        </Button>
+                        <Button variant='ghost'>Secondary Action</Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+            <Modal isOpen={isOpenEdit} onClose={onCloseEdit}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Edit User</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <form>
+                            {/* name, email, password,phone,picture */}
+                        </form>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button colorScheme='blue' mr={3} onClick={onClose}>
+                            Close
+                        </Button>
+                        <Button variant='ghost'>Secondary Action</Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+        </Stack>
+    )
+}
+
+export default withCookies(NormalUsersTable)
