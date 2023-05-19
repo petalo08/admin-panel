@@ -19,3 +19,22 @@ export const getCurrentUser = async (data) => {
     const res = API_INSTANCE.post("/auth/me", data)
     return res
 }
+
+
+export const updateUserById = async (token, id, data) => {
+    const res = API_INSTANCE.patch(`/users/${id}`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return res
+}
+
+export const deleteUserById = async (token, id) => {
+    const res = API_INSTANCE.patch(`/users/${id}`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return res
+}
