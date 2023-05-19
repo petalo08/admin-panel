@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from 'react-icons/ai';
 import { supabase } from "../utils/supabaseClient";
 import { getGalleryById, updateGalleryById } from "../api/gallery";
-import { useToast } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 
 export default function Modal({ visible, onClose }) {
 
@@ -101,12 +101,12 @@ export default function Modal({ visible, onClose }) {
   return (
     <div
       onClick={handelOnClose}
-      className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
+      className="fixed z-40 inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
       <div className="bg-white p-2 rounded w-full sm:w-96">
-        <div className="flex  justify-between items-center mb-5">
+        <div className="flex justify-between items-center mb-5">
           <div className="w-full">
             <h1 className="font-semibold text-center text-xl text-gray-700 underline underline-offset-2">
-              Add new Image
+              Add Image
             </h1>
           </div>
 
@@ -115,15 +115,12 @@ export default function Modal({ visible, onClose }) {
               onClick={onClose}
               className="p-2 rounded-full hover:text-red-500 border border-gray-500 hover:border-red-500 text-gray-500"
             >
-              <AiOutlineClose />
+              <AiOutlineClose size={10} />
             </button>
           </div>
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="image-upload" className="mb-3">
-            Upload Image:
-          </label>
           <input
             id="image-upload"
             type="file"
@@ -143,11 +140,13 @@ export default function Modal({ visible, onClose }) {
           />
         </div>
         <div className="text-center">
-          <button
+          <Button
+            colorScheme="blue"
+            variant="solid"
             onClick={handleSubmit}
-            className="px-5 py-2 bg-gray-700 text-white rounded">
-            Upload Image
-          </button>
+          >
+            Upload
+          </Button>
         </div>
       </div>
     </div>

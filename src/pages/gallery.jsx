@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react"
 import BaseLayout from "../layout/BaseLayout"
 import GalleryModal from "../components/GalleryModal"
 import { getGalleryById, updateGalleryById } from "../api/gallery"
-import { Button, Img, SimpleGrid, Stack, Textarea, useToast } from "@chakra-ui/react"
+import { Button, SimpleGrid, Stack, Text, Textarea, useToast } from "@chakra-ui/react"
+import { AiFillDelete } from "react-icons/ai"
 
 function Gallery() {
   const toast = useToast()
@@ -49,6 +50,35 @@ function Gallery() {
       console.error(err)
     }
   }
+  const handleDeleteImage = async (index) => {
+    try {
+      let tempImages = [...images]
+      tempImages.splice(index, 1)
+      let body = {
+        images: tempImages
+      }
+      const res = await updateGalleryById(body)
+      if (res.status === 200) {
+        toast({
+          title: "Image Deleted.",
+          description: "We've deleted your image.",
+          position: "top-right",
+          status: "success",
+          duration: 3000,
+        })
+        setImages(tempImages)
+      }
+    }
+    catch (err) {
+      toast({
+        title: "Error.",
+        description: "We've deleted your image.",
+        position: "top-right",
+        status: "error",
+        duration: 3000,
+      })
+    }
+  }
   useEffect(() => {
     handleFetchGalleryData()
   }, [])
@@ -63,7 +93,6 @@ function Gallery() {
         bg={'white'}
         px={4}
         py={2}
-        my={2}
         rounded={'md'}
         zIndex={2}
         shadow={'md'}
@@ -78,6 +107,9 @@ function Gallery() {
         </Button>
       </Stack>
       <Stack
+        shadow={'md'}
+        rounded={'md'}
+        p={5}
         justify={'space-evenly'}
         direction={['column', 'row', 'row']} spacing={5}>
         <Stack
@@ -101,12 +133,31 @@ function Gallery() {
         <Stack
           w={['100%', '100%', '100%']}
           direction={['column', 'column', 'column']}>
-          <SimpleGrid columns={[1, 2, 2]} spacing={5}>
+          <Text
+            fontSize={'xl'}
+            fontWeight={'bold'}
+            color={'gray.600'}
+            align={'center'}
+          >
+            Gallery Images
+          </Text>
+          <SimpleGrid columns={[1, 2, 2]} p={5} spacing={2}>
             {images.map((image, index) => (
-              <img
-                className="relative overflow-hidden w-60 h-30 transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
-                key={index} src={image?.url} alt={image?.altText}
-              />
+              <Stack>
+                <img
+                  className="relative overflow-hidden object-cover w-72 h-full transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
+                  key={index} src={image?.url} alt={image?.altText}
+                />
+                <Stack>
+                  <Button
+                    w='max-content'
+                    colorScheme='blue'
+                    variant='solid'
+                    onClick={() => handleDeleteImage(index)}>
+                    <AiFillDelete />
+                  </Button>
+                </Stack>
+              </Stack>
             ))}
           </SimpleGrid>
         </Stack>
