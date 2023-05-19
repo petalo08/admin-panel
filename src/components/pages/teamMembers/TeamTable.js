@@ -18,21 +18,24 @@ import {
   Image,
   Input,
   TableContainer,
+  Stack,
+  useToast,
 } from "@chakra-ui/react";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import Fuse from "fuse.js";
-import { updateTeamMemberById } from "../../../api/teamMember";
+import { deleteTeamMemberById, updateTeamMemberById } from "../../../api/teamMember";
 
 const TeamTable = (props) => {
   const fuseOptions = {
     keys: ["name"],
-  };
+  }
+  const toast = useToast()
   const { data } = props;
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenEdit, setIsOpenEdit] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
-  const [results, setResults] = useState([]);
-  const [tempData, setTempData] = useState({});
+  const [isOpen, setIsOpen] = useState(false)
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
+  const [selectedId, setSelectedId] = useState(null)
+  const [results, setResults] = useState([])
+  const [tempData, setTempData] = useState({})
 
   const onClose = () => setIsOpen(false);
 
@@ -44,12 +47,25 @@ const TeamTable = (props) => {
     setIsOpenEdit(true);
     try {
       const res = await updateTeamMemberById(item._id, item);
-    } catch (err) {}
+    } catch (err) { }
   };
 
-  const handleDelete = (item) => {
+  const handleDelete = async (item) => {
     setSelectedId(id);
     setIsOpen(true);
+    try {
+      const res = await deleteTeamMemberById(item._id);
+    }
+    catch (err) {
+      console.log(err);
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      })
+    }
   };
 
   const handleConfirmDelete = () => {
@@ -68,21 +84,31 @@ const TeamTable = (props) => {
 
   return (
     <>
-      <div className="p-2 m-2 sticky top-10">
+      <Stack position='sticky'
+        top={16}
+        bg={'white'}
+        px={4}
+        py={2}
+        rounded={'md'}
+        zIndex={2}
+        shadow={'md'}
+        direction="row" justify="space-between" align="center"
+      >
         <input
           type="text"
           placeholder="Search by name..."
           onChange={(e) => handleSearch(e.target.value)}
           className="w-[25%] py-2 px-4 rounded-lg shadow-sm bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
         />
-      </div>
-      <TableContainer p={2} m={2}>
+      </Stack>
+      <TableContainer shadow={'md'}
+        rounded={'md'} p={2} m={2}>
         <Table size="md" variant="simple" m={2}>
-          <Thead bg="red.300">
+          <Thead bg="#e9fffb" w='90%'>
             <Tr>
-              <Th color="white">Designation</Th>
-              <Th color="white">Image</Th>
-              <Th color="white">Name</Th>
+              <Th color="black">Designation</Th>
+              <Th color="black">Image</Th>
+              <Th color="black">Name</Th>
               <Th></Th>
             </Tr>
           </Thead>

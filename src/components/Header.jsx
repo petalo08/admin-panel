@@ -55,9 +55,6 @@ const Header = () => {
     <header 
     className="container mx-auto px-5 py-2 bg-[#e9fffb]
     flex justify-end items-center h-[5vh]">
-      {/* <div className="flex items-center">
-        <h3>Dashboard</h3>
-      </div> */}
       <div className="flex items-center">
         <button className="px-3 py-3 rounded-md cursor-pointer hover:bg-yellow-100">
           <FiHome
