@@ -1,10 +1,19 @@
 import React from "react";
+import { getAllNormalUsers } from "../api/users";
+import NormalUsersTable from "../components/pages/users/NormalUsersTable";
+import BaseLayout from "../layout/BaseLayout";
 
-function users() {
-  return <div>users</div>;
+function users(props) {
+  const { normalUsers } = props
+  return (
+    <BaseLayout>
+      <NormalUsersTable data={normalUsers} />
+    </BaseLayout>
+  )
 }
 
 export default users;
+
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
   const token = req.cookies.authToken;
@@ -26,19 +35,21 @@ export async function getServerSideProps(ctx) {
     };
   }
   try {
-    const res = await getAllTeamMembers();
+    const res = await getAllNormalUsers()
     // const seo = await getSeoByPageName("teammembers")
     if (res.status == 200) {
+      console.log(res.data);
       return {
         props: {
-          teamMembers: res.data.data,
+          normalUsers: res.data.data,
         },
       };
     }
   } catch (err) {
+    console.log(err);
     return {
       props: {
-        teamMembers: [],
+        normalUsers: [],
       },
     };
   }

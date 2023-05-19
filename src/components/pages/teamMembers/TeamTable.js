@@ -103,8 +103,8 @@ const TeamTable = (props) => {
       </Stack>
       <TableContainer shadow={'md'}
         rounded={'md'} p={2} m={2}>
-        <Table size="md" variant="simple" m={2}>
-          <Thead bg="#e9fffb" w='90%'>
+        <Table size="md" variant="simple">
+          <Thead bg="#e9fffb">
             <Tr>
               <Th color="black">Designation</Th>
               <Th color="black">Image</Th>

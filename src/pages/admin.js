@@ -1,22 +1,20 @@
 import React from "react";
 import AdminUsersTable from "../components/pages/admin/AdminUsersTable";
 import BaseLayout from "../layout/BaseLayout";
-import AdminDetails from "../components/profile/ProfileDetails";
 import { getAllAdminUsers } from "../api/users";
 
 function admin(props) {
   console.log(props);
+  const { adminUsers } = props
   return (
     <BaseLayout>
-      <div>
-        <AdminDetails />
-        <AdminUsersTable />
-      </div>
+      <AdminUsersTable data={adminUsers} />
     </BaseLayout>
   );
 }
 
-export default admin;
+export default admin
+
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
   const token = req.cookies.authToken;
@@ -41,6 +39,7 @@ export async function getServerSideProps(ctx) {
     const res = await getAllAdminUsers();
     // const seo = await getSeoByPageName("teammembers")
     if (res.status == 200) {
+      console.log(res.data);
       return {
         props: {
           adminUsers: res.data.data,
@@ -48,6 +47,7 @@ export async function getServerSideProps(ctx) {
       };
     }
   } catch (err) {
+    console.log(err);
     return {
       props: {
         adminUsers: [],

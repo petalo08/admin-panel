@@ -1,11 +1,10 @@
 import { useContext } from "react";
 import { SidebarContext } from "../context/SidebarContext";
 import { useRouter } from "next/router";
-import { Box } from "@chakra-ui/react";
+import { Box, Stack, Text } from "@chakra-ui/react";
 import { AiOutlineHome } from "react-icons/ai";
 import { BsPeople } from "react-icons/bs";
 import { TiContacts } from "react-icons/ti";
-import { FiMail } from "react-icons/fi";
 import { MdEventBusy, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
 import { FaUserCircle, FaDigitalTachograph } from 'react-icons/fa';
@@ -75,7 +74,6 @@ const sidebarItems = [
 ];
 
 const Sidebar = (props) => {
-  console.log(props);
   const router = useRouter();
   const { isCollapsed, toggleSidebarcollapse } = useContext(SidebarContext);
 
@@ -123,16 +121,21 @@ const Sidebar = (props) => {
           },
         }}
       >
-        <Box
-          as="div"
-          w={"100%"}
-          mb={12}
-          pb={6}
+        <Stack
+          bg={"#fff"}
+          position={"sticky"}
+          top={"0"}
+          zIndex={"2"}
+          mb={8}
+          py={2}
+          rounded={"md"}
           borderBottom={isCollapsed ? "none" : "1px solid #e5e5e5"}
           textAlign={"center"}
         >
-          {isCollapsed ? "OP" : "Orchid Petal"}
-        </Box>
+          <Text>
+            {isCollapsed ? "OP" : "Orchid Petal"}
+          </Text>
+        </Stack>
         <ul className="sidebar__list">
           {sidebarItems.map(({ name, href, icon: Icon }) => {
             return (
