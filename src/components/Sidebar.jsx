@@ -81,9 +81,11 @@ const Sidebar = (props) => {
 
   // Get user role from authentication
   // const user = JSON.parse(req.cookies.user);
-  // let { user } = props.cookies.cookies
-  // user = JSON.parse(user);
-  // const userRole = user ? user.role : null;
+  const user = {
+    role: "superadmin"
+  }
+  // let user = JSON.parse(props?.cookies?.cookies?.user)
+  const userRole = user ? user.role : null;
 
   // Filter sidebar items based on user role
   // const filteredSidebarItems = sidebarItems.filter((item) => {
