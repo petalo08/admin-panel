@@ -1,6 +1,10 @@
 import React from "react";
 import Image from "next/image";
-const AdminDetails = () => {
+const ProfileDetails = (props) => {
+  const { data } = props;
+
+  console.log(data);
+
   return (
     <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row">
       {/* First Div */}
@@ -81,4 +85,4 @@ const AdminDetails = () => {
   );
 };
 
-export default AdminDetails;
+export default ProfileDetails;

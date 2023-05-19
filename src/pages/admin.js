@@ -1,7 +1,7 @@
 import React from "react";
 import AdminUsersTable from "../components/pages/admin/AdminUsersTable";
 import BaseLayout from "../layout/BaseLayout";
-import AdminDetails from "../components/pages/admin/AdminDetails";
+import AdminDetails from "../components/profile/ProfileDetails";
 
 function admin() {
   return (
