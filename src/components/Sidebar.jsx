@@ -81,21 +81,21 @@ const Sidebar = (props) => {
 
   // Get user role from authentication
   // const user = JSON.parse(req.cookies.user);
-  let { user } = props.cookies.cookies
-  user = JSON.parse(user);
-  const userRole = user ? user.role : null;
+  // let { user } = props.cookies.cookies
+  // user = JSON.parse(user);
+  // const userRole = user ? user.role : null;
 
   // Filter sidebar items based on user role
-  const filteredSidebarItems = sidebarItems.filter((item) => {
-    if (userRole === "superadmin") {
-      return true; // Show all items for superadmin
-    } else if (userRole === "admin") {
-      return item.name !== "Admin"; // Exclude "Admin" item for admin role
-    } else if (userRole === "user") {
-      return !["Admin", "Users", "Payments"].includes(item.name); // Exclude "Admin", "Users", and "Payments" items for user role
-    }
-    return true;
-  });
+  // const filteredSidebarItems = sidebarItems.filter((item) => {
+  //   if (userRole === "superadmin") {
+  //     return true; // Show all items for superadmin
+  //   } else if (userRole === "admin") {
+  //     return item.name !== "Admin"; // Exclude "Admin" item for admin role
+  //   } else if (userRole === "user") {
+  //     return !["Admin", "Users", "Payments"].includes(item.name); // Exclude "Admin", "Users", and "Payments" items for user role
+  //   }
+  //   return true;
+  // });
 
   return (
     <div className="sidebar__wrapper">
