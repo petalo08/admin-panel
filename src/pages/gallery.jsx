@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import BaseLayout from "../layout/BaseLayout"
 import GalleryModal from "../components/GalleryModal"
 import { getGalleryById, updateGalleryById } from "../api/gallery"
-import { Button, Img, Stack, Textarea, useToast } from "@chakra-ui/react"
+import { Button, Img, SimpleGrid, Stack, Textarea, useToast } from "@chakra-ui/react"
 
 function Gallery() {
   const toast = useToast()
@@ -101,12 +101,14 @@ function Gallery() {
         <Stack
           w={['100%', '100%', '100%']}
           direction={['column', 'column', 'column']}>
-          {images.map((image, index) => (
-            <img
-              className="relative overflow-hidden w-60 h-30 transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
-              key={index} src={image?.url} alt={image?.altText}
-            />
-          ))}
+          <SimpleGrid columns={[1, 2, 2]} spacing={5}>
+            {images.map((image, index) => (
+              <img
+                className="relative overflow-hidden w-60 h-30 transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
+                key={index} src={image?.url} alt={image?.altText}
+              />
+            ))}
+          </SimpleGrid>
         </Stack>
       </Stack>
       <GalleryModal onClose={handleOnClose} visible={showMyModal} />

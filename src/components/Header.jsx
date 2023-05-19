@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useCookies } from "react-cookie";
 import { signout } from "../api/auth";
+import { RiProfileLine } from "react-icons/ri";
 
 const Header = () => {
   const router = useRouter()
@@ -51,25 +52,30 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-slate-500 container mx-auto 
-    flex justify-between
-     items-center px-5 py-2">
-      <div className="flex items-center">
-        <h3>Logo</h3>
-      </div>
+    <header 
+    className="container mx-auto px-5 py-2 bg-[#e9fffb]
+    flex justify-end items-center h-[5vh]">
+      {/* <div className="flex items-center">
+        <h3>Dashboard</h3>
+      </div> */}
       <div className="flex items-center">
         <button className="px-3 py-3 rounded-md cursor-pointer hover:bg-yellow-100">
           <FiHome
             className="text-black  "
-            size={24}
+            size={20}
             onClick={() => router.push("/")}
           />
         </button>
         <button
           className="text-black px-3 py-2 rounded-md mr-2 hover:bg-yellow-100"
-          onClick={handleLogout}
+          onClick={() => router.push("/profile")}
         >
-          <FiLogOut size={24} />
+          <RiProfileLine size={20} />
+        </button>
+        <button
+          className="text-black px-3 py-2 rounded-md mr-2 hover:bg-yellow-100"
+          onClick={handleLogout}>
+          <FiLogOut size={20} />
         </button>
       </div>
     </header>

@@ -9,8 +9,8 @@ function ContentLayout({ children, ...props }) {
         <Box
             p={5}
             w={isCollapsed ? '100%' : '85vw'}
-            h='80vh'
-            bg={'red.50'}
+            h='95vh'
+            bg={'white'}
             __css={{
                 overflowY: 'scroll',
                 overflowX: 'hidden',

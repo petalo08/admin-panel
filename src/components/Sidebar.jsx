@@ -18,27 +18,27 @@
 //     setShowContacts(!showContacts);
 //   };
 
-  // const sidebarItems = [
-  //   { id: 1, icon: null, name: 'Team Members', link: '/teammembers' },
-  //   { id: 2, icon: null, name: 'Gallery', link: '/gallery' },
-  //   { id: 3, icon: null, name: 'HeroSection', link: '/hero' },
-  //   { id: 4, icon: null, name: 'Payments', link: '/payments' },
+// const sidebarItems = [
+//   { id: 1, icon: null, name: 'Team Members', link: '/teammembers' },
+//   { id: 2, icon: null, name: 'Gallery', link: '/gallery' },
+//   { id: 3, icon: null, name: 'HeroSection', link: '/hero' },
+//   { id: 4, icon: null, name: 'Payments', link: '/payments' },
 
-  //   {
-  //     id: 5,
-  //     name: 'Contacts',
-  //     link: '/contacts',
-  //     icon: showContacts ? <FaAngleUp /> : <FaAngleDown />,
-  //     subItems: [
-  //       { id: 4, name: 'Email', link: '/contacts/email' },
-  //       { id: 5, name: 'Phone', link: '/contacts/phone' },
-  //     ],
-  //   },
-  //   { id: 6, icon: null, name: 'Admin', link: '/admin' },
-  //   { id: 7, icon: null, name: 'Users', link: '/nearby' },
-  //   { id: 8, icon: null, name: 'Awards & Media', link: '/prime' },
-  //   { id: 9, icon: null, name: 'Commercials', link: '/commercials' },
-  // ];
+//   {
+//     id: 5,
+//     name: 'Contacts',
+//     link: '/contacts',
+//     icon: showContacts ? <FaAngleUp /> : <FaAngleDown />,
+//     subItems: [
+//       { id: 4, name: 'Email', link: '/contacts/email' },
+//       { id: 5, name: 'Phone', link: '/contacts/phone' },
+//     ],
+//   },
+//   { id: 6, icon: null, name: 'Admin', link: '/admin' },
+//   { id: 7, icon: null, name: 'Users', link: '/nearby' },
+//   { id: 8, icon: null, name: 'Awards & Media', link: '/prime' },
+//   { id: 9, icon: null, name: 'Commercials', link: '/commercials' },
+// ];
 
 //   const router = useRouter();
 
@@ -113,13 +113,13 @@ import { AiOutlineHome } from "react-icons/ai";
 import { BsPeople } from "react-icons/bs";
 import { TiContacts } from "react-icons/ti";
 import { FiMail } from "react-icons/fi";
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { MdEventBusy, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
 import { useContext } from "react";
 import { SidebarContext } from "../context/SidebarContext";
 import { useRouter } from "next/router";
 import { Box } from "@chakra-ui/react";
-import { FaUserCircle,FaDigitalTachograph } from 'react-icons/fa';
+import { FaUserCircle, FaDigitalTachograph } from 'react-icons/fa';
 import { RiUserLine } from 'react-icons/ri';
 import { FaPhotoVideo } from 'react-icons/fa';
 import { FaMoneyBillAlt } from "react-icons/fa";
@@ -135,6 +135,11 @@ const sidebarItems = [
     name: "Team Members",
     href: "/teammembers",
     icon: BsPeople,
+  },
+  {
+    name: 'Events',
+    href: '/events',
+    icon: MdEventBusy,
   },
   {
     name: "Contacts",
@@ -179,59 +184,58 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar__wrapper">
-  <button className="collapsed__btn" onClick={toggleSidebarcollapse}>
-    {isCollapsed ? <MdKeyboardArrowRight /> : <MdKeyboardArrowLeft />}
-  </button>
-  <Box
-    position="sticky"
-    top="0"
-    left="0"
-    w={isCollapsed ? "max-content" : ["max-content", "max-content", "15vw"]}
-    h="100%"
-    as="aside"
-    className="sidebar"
-    data-collapse={isCollapsed}
-    sx={{
-      overflowY: "scroll",
-      scrollbarWidth: "none",
-      msOverflowStyle: "none",
-      "&::-webkit-scrollbar": {
-        width: "0px",
-        background: "transparent",
-      },
-    }}
-  >
-    <Box
-      as="div"
-      w={"100%"}
-      mb={12}
-      pb={6}
-      borderBottom={isCollapsed ? "none" : "1px solid #e5e5e5"}
-      textAlign={"center"}
-    >
-      {isCollapsed ? "OP" : "Orchid Petal"}
-    </Box>
-    <ul className="sidebar__list">
-      {sidebarItems.map(({ name, href, icon: Icon }) => {
-        return (
-          <li className="sidebar__item" key={name}>
-            <Link
-              className={`sidebar__link ${
-                router.pathname === href ? "sidebar__link--active" : ""
-              }`}
-              href={href}
-            >
-              <span className="sidebar__icon">
-                <Icon />
-              </span>
-              <span className="sidebar__name">{name}</span>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
-  </Box>
-</div>
+      <button className="collapsed__btn" onClick={toggleSidebarcollapse}>
+        {isCollapsed ? <MdKeyboardArrowRight /> : <MdKeyboardArrowLeft />}
+      </button>
+      <Box
+        position="sticky"
+        top="0"
+        left="0"
+        w={isCollapsed ? "max-content" : ["max-content", "max-content", "15vw"]}
+        h="100%"
+        as="aside"
+        className="sidebar"
+        data-collapse={isCollapsed}
+        sx={{
+          overflowY: "scroll",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          "&::-webkit-scrollbar": {
+            width: "0px",
+            background: "transparent",
+          },
+        }}
+      >
+        <Box
+          as="div"
+          w={"100%"}
+          mb={12}
+          pb={6}
+          borderBottom={isCollapsed ? "none" : "1px solid #e5e5e5"}
+          textAlign={"center"}
+        >
+          {isCollapsed ? "OP" : "Orchid Petal"}
+        </Box>
+        <ul className="sidebar__list">
+          {sidebarItems.map(({ name, href, icon: Icon }) => {
+            return (
+              <li className="sidebar__item" key={name}>
+                <Link
+                  className={`sidebar__link ${router.pathname === href ? "sidebar__link--active" : ""
+                    }`}
+                  href={href}
+                >
+                  <span className="sidebar__icon">
+                    <Icon />
+                  </span>
+                  <span className="sidebar__name">{name}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </Box>
+    </div>
   );
 };
 
