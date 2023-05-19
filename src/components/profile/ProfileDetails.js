@@ -32,6 +32,7 @@ const ProfileDetails = (props) => {
               id="name"
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
+              value={data.name}
             />
             <button className="px-4 py-2 ml-2 bg-green-500 text-white rounded-md">
               Update
@@ -46,6 +47,7 @@ const ProfileDetails = (props) => {
               id="email"
               type="email"
               className="w-full p-2 border border-gray-300 rounded"
+              value={data.email}
             />
             <button className="px-4 py-2 ml-2 bg-green-500 text-white rounded-md">
               Update
@@ -60,6 +62,7 @@ const ProfileDetails = (props) => {
               id="phone"
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
+              value={data.phone}
             />
             <button className="px-4 py-2 ml-2 bg-green-500 text-white rounded-md">
               Update
@@ -74,6 +77,7 @@ const ProfileDetails = (props) => {
               id="role"
               type="text"
               className="w-full p-2 border border-gray-300 rounded"
+              value={data.role}
             />
             <button className="px-4 py-2 ml-2 bg-green-500 text-white rounded-md">
               Update
