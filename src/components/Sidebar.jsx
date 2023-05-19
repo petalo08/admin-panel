@@ -1,129 +1,19 @@
-// import { Disclosure } from '@headlessui/react'
-// import React, { useState } from 'react'
-// import { GiHamburgerMenu } from "react-icons/gi"
-// import { GiArrowDunk } from "react-icons/gi"
-// import { FaHome, FaUser, FaEnvelope, FaAngleDown, FaAngleUp } from 'react-icons/fa';
-// import Link from 'next/link';
-// import { useRouter } from 'next/router';
-// import { AiOutlineClose } from 'react-icons/ai';
-
-
-
-
-
-// function Sidebar() {
-//   const [showContacts, setShowContacts] = useState(false);
-//   const [activePage, setActivePage] = useState('Home')
-//   const toggleContacts = () => {
-//     setShowContacts(!showContacts);
-//   };
-
-// const sidebarItems = [
-//   { id: 1, icon: null, name: 'Team Members', link: '/teammembers' },
-//   { id: 2, icon: null, name: 'Gallery', link: '/gallery' },
-//   { id: 3, icon: null, name: 'HeroSection', link: '/hero' },
-//   { id: 4, icon: null, name: 'Payments', link: '/payments' },
-
-//   {
-//     id: 5,
-//     name: 'Contacts',
-//     link: '/contacts',
-//     icon: showContacts ? <FaAngleUp /> : <FaAngleDown />,
-//     subItems: [
-//       { id: 4, name: 'Email', link: '/contacts/email' },
-//       { id: 5, name: 'Phone', link: '/contacts/phone' },
-//     ],
-//   },
-//   { id: 6, icon: null, name: 'Admin', link: '/admin' },
-//   { id: 7, icon: null, name: 'Users', link: '/nearby' },
-//   { id: 8, icon: null, name: 'Awards & Media', link: '/prime' },
-//   { id: 9, icon: null, name: 'Commercials', link: '/commercials' },
-// ];
-
-//   const router = useRouter();
-
-//   const handleSetActivePage = (page) => {
-//     setActivePage(page);
-//   };
-
-
-//   return (
-//     <div>
-//       <Disclosure as="nav">
-//         <Disclosure.Button className="absolute top-4 left-40 inline-flex items center peer justify-center rounded-md p-2 text-gray-900 hover:text-white hover:bg-gray-900  ">
-//           <GiHamburgerMenu className="block md:hidden f-6 w-6" aria-hidden="true" />
-//         </Disclosure.Button>
-//         <div className="p-6 sm:w-1/3 md:w-1/5  h-screen bg-lime-200 z-20 fixed top-0 -left-full md:left-0  peer-focus:left-0 peer:transition ease-out delay-150 duration-200 ">
-//           <button
-
-//             className="  rounded-full hover:text-red-500 border border-gray-500 hover:border-red-500 text-gray-500 absolute top-1 right-1 md:hidden"
-//           >
-//             <AiOutlineClose />
-//           </button>
-//           <div className="flex flex-col justify-start items-center">
-//             <h1 className="text-base text-center cursor-pointer font bold text-blue-900 border-b border-gray-100 pb-4 w-full">
-//               My dashboard
-
-//             </h1>
-//             <div className="my-6">
-//               <ul>
-//                 {sidebarItems.map(item => (
-//                   <li key={item.id} className="">
-//                     <Link href={item.link} className={`hover:bg-gray-900 rounded-md ease-in block px-4 py-2 text-gray-800 hover:text-white flex justify-between items-center  ${router.pathname === item.link ? 'bg-gray-100 text-gray-900' : ''}`}
-//                       onClick={() => {
-//                         handleSetActivePage(item.link); item.subItems && toggleContacts()
-//                       }}>
-
-
-
-
-//                       <span>{item.name}</span>
-//                       {item.icon}
-//                     </Link>
-//                     {item.subItems && showContacts && (
-//                       <ul className="pl-6">
-//                         {item.subItems.map((subItem) => (
-//                           <li key={subItem.id} className="hover:bg-blue-500">
-//                             <Link href={subItem.link}
-//                               className="block px-4 py-2 text-gray-800 hover:text-white">{subItem.name}
-//                             </Link>
-//                           </li>
-//                         ))}
-//                       </ul>
-//                     )}
-//                   </li>
-//                 ))}
-//               </ul>
-
-
-
-//             </div>
-//           </div>
-//         </div>
-
-//       </Disclosure>
-//     </div>
-
-//   )
-// }
-
-// export default Sidebar
-
+import { useContext } from "react";
+import { SidebarContext } from "../context/SidebarContext";
+import { useRouter } from "next/router";
+import { Box } from "@chakra-ui/react";
 import { AiOutlineHome } from "react-icons/ai";
 import { BsPeople } from "react-icons/bs";
 import { TiContacts } from "react-icons/ti";
 import { FiMail } from "react-icons/fi";
 import { MdEventBusy, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
-import { useContext } from "react";
-import { SidebarContext } from "../context/SidebarContext";
-import { useRouter } from "next/router";
-import { Box } from "@chakra-ui/react";
 import { FaUserCircle, FaDigitalTachograph } from 'react-icons/fa';
 import { RiUserLine } from 'react-icons/ri';
 import { FaPhotoVideo } from 'react-icons/fa';
 import { FaMoneyBillAlt } from "react-icons/fa";
 import { FaRegImages } from "react-icons/fa";
+import { AiOutlineDollarCircle } from 'react-icons/ai';
 
 const sidebarItems = [
   {
@@ -147,16 +37,6 @@ const sidebarItems = [
     icon: TiContacts,
   },
   {
-    name: "Admin",
-    href: "/admin",
-    icon: FaUserCircle,
-  },
-  {
-    name: "Users",
-    href: "/users",
-    icon: RiUserLine,
-  },
-  {
     name: "Awards & Media",
     href: "/awards",
     icon: FaPhotoVideo,
@@ -175,54 +55,82 @@ const sidebarItems = [
     name: "SEO",
     href: "/seo",
     icon: FaDigitalTachograph,
-  }
-]
+  },
+  {
+    name: "Admin",
+    href: "/admin",
+    icon: FaUserCircle,
+  },
+  {
+    name: "Users",
+    href: "/users",
+    icon: RiUserLine,
+  },
+  {
+    name: "Payments",
+    href: "/payments",
+    icon: AiOutlineDollarCircle,
+  },
+];
 
 const Sidebar = () => {
   const router = useRouter();
   const { isCollapsed, toggleSidebarcollapse } = useContext(SidebarContext);
 
+  // Get user role from authentication
+  const user = JSON.parse(req.cookies.user);
+  const userRole = user ? user.role : null;
+
+  // Filter sidebar items based on user role
+  const filteredSidebarItems = sidebarItems.filter((item) => {
+    if (userRole === "superadmin") {
+      return true; // Show all items for superadmin
+    } else if (userRole === "admin") {
+      return item.name !== "Admin"; // Exclude "Admin" item for admin role
+    } else if (userRole === "user") {
+      return !["Admin", "Users", "Payments"].includes(item.name); // Exclude "Admin", "Users", and "Payments" items for user role
+    }
+    return true;
+  });
+
   return (
     <div className="sidebar__wrapper">
-      <button className="collapsed__btn" onClick={toggleSidebarcollapse}>
-        {isCollapsed ? <MdKeyboardArrowRight /> : <MdKeyboardArrowLeft />}
-      </button>
+      {/* Rest of the code */}
       <Box
-        position="sticky"
-        top="0"
-        left="0"
-        w={isCollapsed ? "max-content" : ["max-content", "max-content", "15vw"]}
-        h="100%"
-        as="aside"
-        className="sidebar"
-        data-collapse={isCollapsed}
-        sx={{
-          overflowY: "scroll",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          "&::-webkit-scrollbar": {
-            width: "0px",
-            background: "transparent",
-          },
-        }}
+        as="div"
+        w={"100%"}
+        mb={12}
+        pb={6}
+        borderBottom={isCollapsed ? "none" : "1px solid #e5e5e5"}
+        textAlign={"center"}
       >
+        {isCollapsed ? (
+          <MdKeyboardArrowRight
+            className="sidebar__collapseIcon"
+            onClick={toggleSidebarcollapse}
+          />
+        ) : (
+          <MdKeyboardArrowLeft
+            className="sidebar__collapseIcon"
+            onClick={toggleSidebarcollapse}
+          />
+        )}
         <Box
-          as="div"
-          w={"100%"}
-          mb={12}
-          pb={6}
-          borderBottom={isCollapsed ? "none" : "1px solid #e5e5e5"}
-          textAlign={"center"}
+          as="h1"
+          fontSize={isCollapsed ? "0px" : "22px"}
+          fontWeight="bold"
+          mt={2}
         >
           {isCollapsed ? "OP" : "Orchid Petal"}
         </Box>
         <ul className="sidebar__list">
-          {sidebarItems.map(({ name, href, icon: Icon }) => {
+          {filteredSidebarItems.map(({ name, href, icon: Icon }) => {
             return (
               <li className="sidebar__item" key={name}>
                 <Link
-                  className={`sidebar__link ${router.pathname === href ? "sidebar__link--active" : ""
-                    }`}
+                  className={`sidebar__link ${
+                    router.pathname === href ? "sidebar__link--active" : ""
+                  }`}
                   href={href}
                 >
                   <span className="sidebar__icon">
@@ -240,3 +148,29 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+
+export async function getServerSideProps(ctx) {
+  const { req, res } = ctx;
+  const token = req.cookies.authToken;
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    }
+  }
+  const user = JSON.parse(req.cookies.user)
+  if (user.role == "user") {
+    return {
+      redirect: {
+        destination: `/`,
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {},
+  };
+}
