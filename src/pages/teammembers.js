@@ -6,25 +6,14 @@ import Modal from '../components/Modal';
 import { getAllTeamMembers } from '../api/teamMember';
 import TeamTable from '../components/pages/teamMembers/TeamTable';
 import { Button, Stack } from '@chakra-ui/react';
+import { getSeoByPageName } from '../api/seo';
 function TeamMembers(props) {
   const {
     teamMembers
   } = props
-  console.log(teamMembers)
 
-  const [showMyModal, setShowMyModal] = useState(false);
-  const handekOnClose = () => setShowMyModal(false);
-
-
-
-  const data = [
-    { sNo: 1, name: "John", serviceName: "Service 1", date: "b-101" },
-    { sNo: 2, name: "Mary", serviceName: "Service 2", date: "b-101" },
-    { sNo: 3, name: "Bob", serviceName: "Service 3", date: "b-101" },
-    { sNo: 4, name: "Alice", serviceName: "Service 4", date: "b-101" },
-    { sNo: 5, name: "Jane", serviceName: "Service 5", date: "b-101" },
-  ];
-
+  const [showMyModal, setShowMyModal] = useState(false)
+  const handekOnClose = () => setShowMyModal(false)
 
 
   // const handleDeleteClick = (row) => {
@@ -38,7 +27,18 @@ function TeamMembers(props) {
 
   return (
     <BaseLayout>
-      <Stack p={2} m={2} align='flex-end' pos='sticky' top={0}>
+      <Stack
+        direction='row'
+        justify={'flex-end'}
+        align={'center'}
+        position={'sticky'}
+        top={0}
+        bg={'white'}
+        px={4}
+        py={2}
+        rounded={'md'}
+        zIndex={2}
+        shadow={'md'}>
         <Button onClick={() => setShowMyModal(true)}>
           Add a member
         </Button>
@@ -56,7 +56,6 @@ export default TeamMembers
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
   const token = req.cookies.authToken;
-  console.log(user)
   if (!token) {
     return {
       redirect: {
@@ -76,6 +75,7 @@ export async function getServerSideProps(ctx) {
   }
   try {
     const res = await getAllTeamMembers()
+    // const seo = await getSeoByPageName("teammembers")
     if (res.status == 200) {
       return {
         props: {

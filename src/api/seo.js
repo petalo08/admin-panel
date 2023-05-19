@@ -19,3 +19,8 @@ export const createSeo = async () => {
     const res = await API_INSTANCE.post(`/seo`)
     return res
 }
+
+export const getSeoByPageName = async (pageName) => {
+    const res = await API_INSTANCE.get(`/seo/page/${pageName}`)
+    return res
+}
