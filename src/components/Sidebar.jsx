@@ -99,36 +99,40 @@ const Sidebar = (props) => {
 
   return (
     <div className="sidebar__wrapper">
-      {/* Rest of the code */}
+      <button className="collapsed__btn" onClick={toggleSidebarcollapse}>
+        {isCollapsed ? <MdKeyboardArrowRight /> : <MdKeyboardArrowLeft />}
+      </button>
       <Box
-        as="div"
-        w={"100%"}
-        mb={12}
-        pb={6}
-        borderBottom={isCollapsed ? "none" : "1px solid #e5e5e5"}
-        textAlign={"center"}
+        position="sticky"
+        top="0"
+        left="0"
+        w={isCollapsed ? "max-content" : ["max-content", "max-content", "15vw"]}
+        h="100%"
+        as="aside"
+        className="sidebar"
+        data-collapse={isCollapsed}
+        sx={{
+          overflowY: "scroll",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          "&::-webkit-scrollbar": {
+            width: "0px",
+            background: "transparent",
+          },
+        }}
       >
-        {isCollapsed ? (
-          <MdKeyboardArrowRight
-            className="sidebar__collapseIcon"
-            onClick={toggleSidebarcollapse}
-          />
-        ) : (
-          <MdKeyboardArrowLeft
-            className="sidebar__collapseIcon"
-            onClick={toggleSidebarcollapse}
-          />
-        )}
         <Box
-          as="h1"
-          fontSize={isCollapsed ? "0px" : "22px"}
-          fontWeight="bold"
-          mt={2}
+          as="div"
+          w={"100%"}
+          mb={12}
+          pb={6}
+          borderBottom={isCollapsed ? "none" : "1px solid #e5e5e5"}
+          textAlign={"center"}
         >
           {isCollapsed ? "OP" : "Orchid Petal"}
         </Box>
         <ul className="sidebar__list">
-          {filteredSidebarItems.map(({ name, href, icon: Icon }) => {
+          {sidebarItems.map(({ name, href, icon: Icon }) => {
             return (
               <li className="sidebar__item" key={name}>
                 <Link
