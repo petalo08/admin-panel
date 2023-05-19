@@ -30,7 +30,7 @@ const SidebarCard = ({ name, href, icon: Icon }) => {
   return (
     <a
       href={href}
-      className={`flex flex-col items-center justify-center p-4 transition-all duration-300 ease-in-out transform ${
+      className={`flex flex-col items-center justify-center p-4 transition-all duration-300 ease-in-out transform shadow-md ${
         isHovered ? "scale-105" : ""
       }`}
       onMouseEnter={handleMouseEnter}
