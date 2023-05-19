@@ -14,6 +14,7 @@ import { FaPhotoVideo } from 'react-icons/fa';
 import { FaMoneyBillAlt } from "react-icons/fa";
 import { FaRegImages } from "react-icons/fa";
 import { AiOutlineDollarCircle } from 'react-icons/ai';
+import { withCookies } from "react-cookie";
 
 const sidebarItems = [
   {
@@ -73,12 +74,15 @@ const sidebarItems = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+  console.log(props);
   const router = useRouter();
   const { isCollapsed, toggleSidebarcollapse } = useContext(SidebarContext);
 
   // Get user role from authentication
-  const user = JSON.parse(req.cookies.user);
+  // const user = JSON.parse(req.cookies.user);
+  let { user } = props.cookies.cookies
+  user = JSON.parse(user);
   const userRole = user ? user.role : null;
 
   // Filter sidebar items based on user role
@@ -128,9 +132,8 @@ const Sidebar = () => {
             return (
               <li className="sidebar__item" key={name}>
                 <Link
-                  className={`sidebar__link ${
-                    router.pathname === href ? "sidebar__link--active" : ""
-                  }`}
+                  className={`sidebar__link ${router.pathname === href ? "sidebar__link--active" : ""
+                    }`}
                   href={href}
                 >
                   <span className="sidebar__icon">
@@ -147,7 +150,7 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default withCookies(Sidebar)
 
 
 export async function getServerSideProps(ctx) {
