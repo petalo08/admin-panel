@@ -2,8 +2,10 @@ import React from "react";
 import AdminUsersTable from "../components/pages/admin/AdminUsersTable";
 import BaseLayout from "../layout/BaseLayout";
 import AdminDetails from "../components/profile/ProfileDetails";
+import { getAllAdminUsers } from "../api/users";
 
-function admin() {
+function admin(props) {
+  console.log(props);
   return (
     <BaseLayout>
       <div>
@@ -36,19 +38,19 @@ export async function getServerSideProps(ctx) {
     };
   }
   try {
-    const res = await getAllTeamMembers();
+    const res = await getAllAdminUsers();
     // const seo = await getSeoByPageName("teammembers")
     if (res.status == 200) {
       return {
         props: {
-          teamMembers: res.data.data,
+          adminUsers: res.data.data,
         },
       };
     }
   } catch (err) {
     return {
       props: {
-        teamMembers: [],
+        adminUsers: [],
       },
     };
   }
