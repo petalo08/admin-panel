@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react"
 import BaseLayout from "../layout/BaseLayout"
-import Image from 'next/image'
-import { FiSearch } from 'react-icons/fi'
 import GalleryModal from "../components/GalleryModal"
 import { getGalleryById, updateGalleryById } from "../api/gallery"
-import { useToast } from "@chakra-ui/react"
+import { Button, Img, Stack, Textarea, useToast } from "@chakra-ui/react"
 
 function Gallery() {
+  const toast = useToast()
   const [showMyModal, setShowMyModal] = useState(false)
   const [description, setDescription] = useState("")
   const [images, setImages] = useState([])
@@ -37,7 +36,13 @@ function Gallery() {
       }
       const res = await updateGalleryById(body)
       if (res.status === 200) {
-        alert("Updated successfully")
+        toast({
+          title: "Gallery Updated.",
+          description: "We've updated your gallery description.",
+          position: "top-right",
+          status: "success",
+          duration: 3000,
+        })
       }
     }
     catch (err) {
@@ -50,56 +55,61 @@ function Gallery() {
 
   return (
     <BaseLayout>
-      <div className="flex flex-col md:pl-2 lg:pl-40 xl:pl-60">
-        <div className="container mx-auto px-4 lg:px-8 py-16">
-          <div className="flex justify-between items-center py-4 gap-2">
-            <div className="flex items-center ">
-              <input
-                type="text"
-                placeholder="Search images"
-                className="px-3 py-2 text-gray-700 rounded-md focus:outline-none focus:ring focus:ring-indigo-200 transition-colors w-96 bg-gray-100"
-              />
-              <button className="ml-2 p-2 bg-red-300 cursor-pointer rounded-md text-white">
-                <FiSearch className="h-6 w-6" />
-              </button>
-            </div>
-            <button
-              onClick={() => setShowMyModal(true)}
-              className="p-2 bg-red-300 cursor-pointer rounded-md text-white">
-              Upload Image
-            </button>
-          </div>
-          {/* {description } */}
-          <div className="container mx-auto px-4 lg:px-8 py-16 flex flex-row justify-between items-center">
-            <input
-              type="text"
-              placeholder="Add description"
-              value={description}
-              onChange={handleOnChange}
-              className="w-full py-2 px-4 h-20 text-gray-700 bg-gray-100 rounded-md focus:outline-none focus:ring focus:ring-indigo-200 transition-colors"
+      <Stack direction='row'
+        justify={'flex-end'}
+        align={'center'}
+        position={'sticky'}
+        top={0}
+        bg={'white'}
+        px={4}
+        py={2}
+        my={2}
+        rounded={'md'}
+        zIndex={2}
+        shadow={'md'}
+      >
+        <Button
+          position={'sticky'}
+          top={0}
+          colorScheme='blue'
+          variant='solid'
+          onClick={() => setShowMyModal(true)}>
+          Upload Image
+        </Button>
+      </Stack>
+      <Stack
+        justify={'space-evenly'}
+        direction={['column', 'row', 'row']} spacing={5}>
+        <Stack
+          w={['100%', '100%', '100%']}
+          direction={['column', 'column', 'column']}
+        >
+          <Textarea
+            h='40'
+            placeholder="Add description"
+            value={description}
+            onChange={handleOnChange}
+            size='md'
+          />
+          <Button
+            colorScheme='blue'
+            variant='solid'
+            onClick={() => handleUpdateGallery()}>
+            Update
+          </Button>
+        </Stack>
+        <Stack
+          w={['100%', '100%', '100%']}
+          direction={['column', 'column', 'column']}>
+          {images.map((image, index) => (
+            <img
+              className="relative overflow-hidden w-60 h-30 transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
+              key={index} src={image?.url} alt={image?.altText}
             />
-            <div className="w-full md:w-1/3 lg:w-1/2 xl:w-1/3 flex justify-center md:justify-end">
-              <button
-                onClick={() => handleUpdateGallery()}
-                className="px-4 py-2 h-14  bg-red-300 text-white rounded-md">
-                Update Description
-              </button>
-            </div>
-          </div>
-          {/* { Gallery images} */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-            {images.map((image, index) => (
-              <div
-                key={index}
-                className="relative overflow-hidden transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
-              >
-                <Image src={image?.url?.publicUrl} alt={image?.altText} width={800} height={800} />
-              </div>
-            ))}
-          </div>
-        </div>
-        <GalleryModal onClose={handleOnClose} visible={showMyModal} />
-      </div>
+          ))}
+        </Stack>
+      </Stack>
+      <GalleryModal onClose={handleOnClose} visible={showMyModal} />
     </BaseLayout>
 
   )
