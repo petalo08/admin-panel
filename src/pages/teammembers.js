@@ -48,8 +48,6 @@ function TeamMembers(props) {
         <Modal onClose={handekOnClose} visible={showMyModal} />
       </div>
     </BaseLayout >
-
-
   )
 }
 
@@ -58,7 +56,6 @@ export default TeamMembers
 export async function getServerSideProps(ctx) {
   const { req, res } = ctx;
   const token = req.cookies.authToken;
-  const user = JSON.parse(req.cookies.user)
   console.log(user)
   if (!token) {
     return {
@@ -68,14 +65,15 @@ export async function getServerSideProps(ctx) {
       },
     };
   }
-  // if (user.role == "user") {
-  //   return {
-  //     redirect: {
-  //       destination: "/",
-  //       permanent: false,
-  //     },
-  //   }
-  // }
+  const user = JSON.parse(req.cookies.user)
+  if (user.role == "user") {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    }
+  }
   try {
     const res = await getAllTeamMembers()
     if (res.status == 200) {
