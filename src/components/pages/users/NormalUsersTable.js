@@ -18,15 +18,33 @@ import {
 import { AiFillDelete, AiFillEdit, AiFillPlusSquare } from 'react-icons/ai';
 import { deleteUserById, signup, updateUserById } from '../../../api/auth'
 import { withCookies } from 'react-cookie'
+import Fuse from "fuse.js";
+import { useState } from 'react';
+
 
 function NormalUsersTable(props) {
-    const { data } = props
+    const fuseOptions = {
+        keys: ["name"],
+    }
+    const { data: normalUsers } = props
+    const [data, setData] = useState(normalUsers)
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { isOpen: isOpenEdit, onOpen: onOpenEdit, onClose: onCloseEdit } = useDisclosure()
-
+    const {
+        isOpen: isOpenEdit,
+        onOpen: onOpenEdit,
+        onClose: onCloseEdit } = useDisclosure()
+    const [results, setResults] = useState([])
     const token = props.cookies.get('authToken')
     const toast = useToast()
-
+    const fuse = new Fuse(data, fuseOptions)
+    const handleSearch = (value) => {
+        if (value) {
+            const result = fuse.search(value)
+            setResults(result.map((r) => r.item))
+        } else {
+            setResults(data);
+        }
+    }
     const handleDelete = async (id) => {
         try {
             const res = await deleteUserById(token, id)
@@ -124,7 +142,7 @@ function NormalUsersTable(props) {
                 <Input
                     width="40%"
                     variant="filled"
-
+                    onChange={(e) => handleSearch(e.target.value)}
                     placeholder="Search user by name" />
                 <Button
                     colorScheme="blue"
@@ -147,7 +165,23 @@ function NormalUsersTable(props) {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {data.map((item) => (
+                        {results.length > 0 && results.map((item) => (
+                            <Tr key={item._id}>
+                                <Td>{item.name}</Td>
+                                <Td>{item.email}</Td>
+                                <Td>
+                                    <Stack direction='row' spacing={10}>
+                                        <AiFillEdit
+                                            onClick={onOpenEdit}
+                                        />
+                                        <AiFillDelete
+                                            onClick={() => handleDelete(item._id)}
+                                        />
+                                    </Stack>
+                                </Td>
+                            </Tr>
+                        ))}
+                        {results.length === 0 && data.map((item) => (
                             <Tr key={item._id}>
                                 <Td>{item.name}</Td>
                                 <Td>{item.email}</Td>

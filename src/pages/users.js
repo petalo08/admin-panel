@@ -4,7 +4,6 @@ import NormalUsersTable from "../components/pages/users/NormalUsersTable";
 import BaseLayout from "../layout/BaseLayout";
 
 function users(props) {
-  console.log(props);
   const { normalUsers } = props
   return (
     <BaseLayout>

@@ -55,6 +55,11 @@ const TeamTable = (props) => {
     setIsOpen(true);
     try {
       const res = await deleteTeamMemberById(item._id);
+      if (res.data === 200) {
+        toast({
+          title: 'Success'
+        })
+      }
     }
     catch (err) {
       console.log(err);
@@ -71,7 +76,8 @@ const TeamTable = (props) => {
   const handleConfirmDelete = () => {
     // handle delete logic here
     onClose();
-  };
+  }
+
   const fuse = new Fuse(data, fuseOptions);
   const handleSearch = (value) => {
     if (value) {
@@ -80,7 +86,7 @@ const TeamTable = (props) => {
     } else {
       setResults(data);
     }
-  };
+  }
 
   return (
     <>
@@ -142,7 +148,7 @@ const TeamTable = (props) => {
                 </Td>
               </Tr>
             ))}
-            {data.map((item) => (
+            {results.length === 0 && data.map((item) => (
               <Tr key={item.id}>
                 <Td>{item.designation}</Td>
                 <Td>

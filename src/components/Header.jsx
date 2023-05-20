@@ -53,7 +53,7 @@ const Header = () => {
 
   return (
     <header
-      className="container mx-auto px-5 py-2 bg-[#e9fffb]
+      className="w-full px-5 py-2 bg-[#e9fffb]
     flex justify-end items-center h-[5vh]">
       <div className="flex items-center gap-5">
         <button className=" p-1 rounded-md cursor-pointer hover:bg-yellow-100">
