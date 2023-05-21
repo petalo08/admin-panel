@@ -31,7 +31,7 @@ export const updateUserById = async (token, id, data) => {
 }
 
 export const deleteUserById = async (token, id) => {
-    const res = API_INSTANCE.delete(`/users/${id}`, data, {
+    const res = API_INSTANCE.delete(`/users/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

@@ -20,19 +20,22 @@ import { deleteUserById, signup, updateUserById } from '../../../api/auth'
 import { withCookies } from 'react-cookie'
 import Fuse from "fuse.js";
 import { useState } from 'react';
+import EditUserModal from './EditUserModal';
 
 
 function NormalUsersTable(props) {
     const fuseOptions = {
         keys: ["name"],
     }
+    const [selectedData, setSelectedData] = useState({})
     const { data: normalUsers } = props
     const [data, setData] = useState(normalUsers)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const {
         isOpen: isOpenEdit,
         onOpen: onOpenEdit,
-        onClose: onCloseEdit } = useDisclosure()
+        onClose: onCloseEdit
+    } = useDisclosure()
     const [results, setResults] = useState([])
     const token = props.cookies.get('authToken')
     const toast = useToast()
@@ -60,7 +63,7 @@ function NormalUsersTable(props) {
             }
         }
         catch (err) {
-            console.log(err);
+            console.log(err)
             toast({
                 title: "Account deleted failed.",
                 position: "top-right",
@@ -72,33 +75,8 @@ function NormalUsersTable(props) {
         }
     }
     const handleEdit = async (item) => {
-        try {
-            let body = {
-
-            }
-            const res = await updateUserById(token, item._id, body)
-            if (res.status === 200) {
-                toast({
-                    title: "Account updated.",
-                    position: "top-right",
-                    description: "We've updated your account.",
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
-                })
-            }
-        }
-        catch (err) {
-            console.log(err);
-            toast({
-                title: "Account updated failed.",
-                position: "top-right",
-                description: "We've updated your account.",
-                status: "error",
-                duration: 3000,
-                isClosable: true,
-            })
-        }
+        setSelectedData(item)
+        onOpenEdit()
     }
     const handleAdd = async () => {
         try {
@@ -133,110 +111,98 @@ function NormalUsersTable(props) {
         }
     }
     return (
-        <Stack>
-            <Stack
-                direction="row"
-                align="center"
-                justify="space-between"
-            >
-                <Input
-                    width="40%"
-                    variant="filled"
-                    onChange={(e) => handleSearch(e.target.value)}
-                    placeholder="Search user by name" />
-                <Button
-                    colorScheme="blue"
-                    variant="solid"
-                    rightIcon={<AiFillPlusSquare />}
-                    onClick={onOpen}
+        <>
+            <Stack>
+                <Stack
+                    direction="row"
+                    align="center"
+                    justify="space-between"
                 >
-                    Add User
-                </Button>
+                    <Input
+                        width="40%"
+                        variant="filled"
+                        onChange={(e) => handleSearch(e.target.value)}
+                        placeholder="Search user by name" />
+                    <Button
+                        colorScheme="blue"
+                        variant="solid"
+                        rightIcon={<AiFillPlusSquare />}
+                        onClick={onOpen}
+                    >
+                        Add User
+                    </Button>
+                </Stack>
+                <Stack></Stack>
+                <TableContainer shadow={'md'}
+                    rounded={'md'}>
+                    <Table size={['sm', 'md', 'lg']} variant="simple">
+                        <Thead bg="#e9fffb">
+                            <Tr>
+                                <Th color="black">Name</Th>
+                                <Th color="black">Email</Th>
+                                <Th></Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            {results.length > 0 && results.map((item) => (
+                                <Tr key={item._id}>
+                                    <Td>{item.name}</Td>
+                                    <Td>{item.email}</Td>
+                                    <Td>
+                                        <Stack direction='row' spacing={10}>
+                                            <AiFillEdit
+                                                onClick={
+                                                    () => handleEdit(item)
+                                                }
+                                            />
+                                            <AiFillDelete
+                                                onClick={() => handleDelete(item._id)}
+                                            />
+                                        </Stack>
+                                    </Td>
+                                </Tr>
+                            ))}
+                            {results.length === 0 && data.map((item) => (
+                                <Tr key={item._id}>
+                                    <Td>{item.name}</Td>
+                                    <Td>{item.email}</Td>
+                                    <Td>
+                                        <Stack direction='row' spacing={10}>
+                                            <AiFillEdit
+                                                onClick={
+                                                    () => handleEdit(item)
+                                                }
+                                            />
+                                            <AiFillDelete
+                                                onClick={() => handleDelete(item._id)}
+                                            />
+                                        </Stack>
+                                    </Td>
+                                </Tr>
+                            ))}
+                        </Tbody>
+                    </Table>
+                </TableContainer>
+                <Modal isOpen={isOpen} onClose={onClose}>
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Add User</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <form>
+                                {/* name, email, password,picture */}
+                            </form>
+                        </ModalBody>
+                    </ModalContent>
+                </Modal>
             </Stack>
-            <Stack></Stack>
-            <TableContainer shadow={'md'}
-                rounded={'md'}>
-                <Table size="lg" variant="simple">
-                    <Thead bg="#e9fffb">
-                        <Tr>
-                            <Th color="black">Name</Th>
-                            <Th color="black">Email</Th>
-                            <Th></Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {results.length > 0 && results.map((item) => (
-                            <Tr key={item._id}>
-                                <Td>{item.name}</Td>
-                                <Td>{item.email}</Td>
-                                <Td>
-                                    <Stack direction='row' spacing={10}>
-                                        <AiFillEdit
-                                            onClick={onOpenEdit}
-                                        />
-                                        <AiFillDelete
-                                            onClick={() => handleDelete(item._id)}
-                                        />
-                                    </Stack>
-                                </Td>
-                            </Tr>
-                        ))}
-                        {results.length === 0 && data.map((item) => (
-                            <Tr key={item._id}>
-                                <Td>{item.name}</Td>
-                                <Td>{item.email}</Td>
-                                <Td>
-                                    <Stack direction='row' spacing={10}>
-                                        <AiFillEdit
-                                            onClick={onOpenEdit}
-                                        />
-                                        <AiFillDelete
-                                            onClick={() => handleDelete(item._id)}
-                                        />
-                                    </Stack>
-                                </Td>
-                            </Tr>
-                        ))}
-                    </Tbody>
-                </Table>
-            </TableContainer>
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Add User</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <form>
-                            {/* name, email, password,picture */}
-                        </form>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button variant='ghost'>Secondary Action</Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
-            <Modal isOpen={isOpenEdit} onClose={onCloseEdit}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Edit User</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <form>
-                            {/* name, email, password,phone,picture */}
-                        </form>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button variant='ghost'>Secondary Action</Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
-        </Stack>
+            <EditUserModal
+                isOpen={isOpenEdit}
+                onClose={onCloseEdit}
+                data={selectedData}
+                handleEdit={handleEdit}
+            />
+        </>
     )
 }
 

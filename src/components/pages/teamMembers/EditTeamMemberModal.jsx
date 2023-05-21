@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 
 const EditTeamMemberModal = (props) => {
-  const { isOpen, onOpen, onClose,data } = props
+  const { isOpen, onOpen, onClose, data } = props
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -57,7 +57,7 @@ const EditTeamMemberModal = (props) => {
                   />
                 </div>
               </div>
-              </form>
+            </form>
           </ModalBody>
         </ModalContent>
       </Modal>
