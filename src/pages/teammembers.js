@@ -80,6 +80,7 @@ function TeamMembers(props) {
           isClosable: true,
         })
         onClose()
+        router.reload()
       }
     }
   }
