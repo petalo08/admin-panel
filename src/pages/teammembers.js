@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BaseLayout from "../layout/BaseLayout";
-import { getAllTeamMembers } from "../api/teamMember";
+import { createTeamMember, getAllTeamMembers } from "../api/teamMember";
 import TeamTable from "../components/pages/teamMembers/TeamTable";
 import {
   Button, Stack,
@@ -12,11 +12,14 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react"
 import { getSeoByPageName } from "../api/seo"
+import { supabase } from "../utils/supabaseClient";
 
 
 function TeamMembers(props) {
+  const toast = useToast()
   const { teamMembers } = props
   const [image, setImage] = useState(null)
   const [fl, setFl] = useState(null)
@@ -41,7 +44,45 @@ function TeamMembers(props) {
     }
     setFl(file)
   }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!fl) return
 
+    const path = `members/${fl.name}`
+    const { data, error } = await supabase.storage.from('images').upload(path, fl)
+
+    if (error) {
+      console.error(error)
+    } else {
+      console.log('File uploaded successfully:', data)
+      const { data: url, error: err } = supabase.storage.from('images').getPublicUrl(path)
+      if (err) {
+        console.error(err)
+        return
+      }
+      const newImage = {
+        url: url.publicUrl,
+      }
+      setImage(null)
+      setFl(null)
+      let body = {
+        name: name,
+        designation: designation,
+        image: newImage.url
+      }
+      const res2 = await createTeamMember(body)
+      if (res2.status === 200) {
+        toast({
+          position: "top-right",
+          title: "Team member added successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        })
+        onClose()
+      }
+    }
+  }
   return (
     <BaseLayout>
       <Stack
@@ -67,8 +108,12 @@ function TeamMembers(props) {
           <ModalCloseButton />
           <ModalBody>
             <Stack spacing={4}>
-              <input type="text" placeholder="Name" />
-              <input type="text" placeholder="Designation" />
+              <input type="text"
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name" />
+              <input type="text"
+                onChange={(e) => setDesignation(e.target.value)}
+                placeholder="Designation" />
               <input
                 id="image-upload"
                 type="file"
@@ -79,15 +124,15 @@ function TeamMembers(props) {
               {image && (
                 <img src={image} alt="Uploaded Image" className="w-full mb-3" />
               )}
+              <Button
+                colorScheme="blue"
+                variant="solid"
+                onClick={handleSubmit}
+              >
+                Add
+              </Button>
             </Stack>
           </ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant='ghost'>Secondary Action</Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </BaseLayout>
