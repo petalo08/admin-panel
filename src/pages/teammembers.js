@@ -1,26 +1,46 @@
 import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
-
 import BaseLayout from "../layout/BaseLayout";
-import Modal from "../components/Modal";
 import { getAllTeamMembers } from "../api/teamMember";
 import TeamTable from "../components/pages/teamMembers/TeamTable";
-import { Button, Stack } from "@chakra-ui/react";
-import { getSeoByPageName } from "../api/seo";
+import {
+  Button, Stack,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react"
+import { getSeoByPageName } from "../api/seo"
+
+
 function TeamMembers(props) {
-  const { teamMembers } = props;
+  const { teamMembers } = props
+  const [image, setImage] = useState(null)
+  const [fl, setFl] = useState(null)
+  const [name, setName] = useState("")
+  const [designation, setDesignation] = useState("")
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const [showMyModal, setShowMyModal] = useState(false);
-  const handekOnClose = () => setShowMyModal(false);
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.webp|\.svg)$/i;
 
-  // const handleDeleteClick = (row) => {
-  //   setData(data.filter((r) => r.sNo !== row.sNo));
-  // };
+    if (!allowedExtensions.exec(file.name)) {
+      alert("Error: Please choose a file with a valid image format (jpg, jpeg, png, webp, svg).");
+      event.target.value = "";
+      return;
+    }
 
-  const handleEditClick = (row) => {
-    // implement your edit functionality here
-    console.log("Edit row: ", row);
-  };
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setImage(reader.result);
+    }
+    setFl(file)
+  }
 
   return (
     <BaseLayout>
@@ -37,12 +57,39 @@ function TeamMembers(props) {
         zIndex={2}
         shadow={"md"}
       >
-        <Button onClick={() => setShowMyModal(true)}>Add a member</Button>
+        <Button onClick={onOpen}>Add a member</Button>
       </Stack>
       <TeamTable data={teamMembers} />
-      <div className="flex flex-col md:pl-40 lg:pl-52 xl:pl-60 h-full">
-        <Modal onClose={handekOnClose} visible={showMyModal} />
-      </div>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Add team member</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Stack spacing={4}>
+              <input type="text" placeholder="Name" />
+              <input type="text" placeholder="Designation" />
+              <input
+                id="image-upload"
+                type="file"
+                accept=".jpg, .jpeg, .png, .webp, .svg"
+                onChange={handleImageUpload}
+                className="border border-gray-700 p-2 rounded mb-3"
+              />
+              {image && (
+                <img src={image} alt="Uploaded Image" className="w-full mb-3" />
+              )}
+            </Stack>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant='ghost'>Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </BaseLayout>
   );
 }
