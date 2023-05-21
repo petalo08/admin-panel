@@ -1,5 +1,4 @@
 import { useState } from "react";
-import EditModal from "./editModal";
 import {
   Table, Thead, Tbody,
   Tr, Th, Td,
@@ -8,13 +7,17 @@ import {
   TableContainer,
   Stack,
   useToast,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import Fuse from "fuse.js";
 import { deleteTeamMemberById, updateTeamMemberById } from "../../../api/teamMember";
 import { useRouter } from "next/router";
+import EditTeamMemberModal from "./EditTeamMemberModal";
 
 const TeamTable = (props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [selectedData, setSelectedData] = useState({})
   const router = useRouter()
   const fuseOptions = {
     keys: ["name"],
@@ -24,17 +27,15 @@ const TeamTable = (props) => {
   const [results, setResults] = useState([])
 
   const handleEdit = async (item) => {
-    try {
-      const res = await updateTeamMemberById(item._id, item);
-    } catch (err) {
-
-    }
+    setSelectedData(item)
+    onOpen()
   }
 
   const handleDelete = async (item) => {
     try {
       const res = await deleteTeamMemberById(item._id);
       if (res.data === 200) {
+        console.log("deleted")
         toast({
           title: 'Success',
           description: 'Team member deleted successfully',
@@ -43,12 +44,12 @@ const TeamTable = (props) => {
           isClosable: true,
           position: 'top-right'
         })
-        router.reload()
       }
     }
     catch (err) {
       toast({
         title: "Error",
+        position: "top-right",
         description: "Something went wrong",
         status: "error",
         duration: 3000,
@@ -58,12 +59,13 @@ const TeamTable = (props) => {
   }
 
   const fuse = new Fuse(data, fuseOptions);
+
   const handleSearch = (value) => {
     if (value) {
       const result = fuse.search(value);
       setResults(result.map((item) => item.item));
     } else {
-      setResults(data);
+      setResults(data)
     }
   }
 
@@ -99,7 +101,7 @@ const TeamTable = (props) => {
           </Thead>
           <Tbody>
             {results.map((item) => (
-              <Tr key={item.id}>
+              <Tr key={item._id}>
                 <Td>{item.designation}</Td>
                 <Td>
                   <Image
@@ -128,7 +130,7 @@ const TeamTable = (props) => {
               </Tr>
             ))}
             {results.length === 0 && data.map((item) => (
-              <Tr key={item.id}>
+              <Tr key={item._id}>
                 <Td>{item.designation}</Td>
                 <Td>
                   <Image
@@ -159,6 +161,12 @@ const TeamTable = (props) => {
           </Tbody>
         </Table>
       </TableContainer>
+      <EditTeamMemberModal
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        data={selectedData}
+      />
     </>
   );
 };
