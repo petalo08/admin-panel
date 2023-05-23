@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { createSeo } from '../../../api/seo'
-import { useToast } from '@chakra-ui/react'
+import { Button, Stack, useToast } from '@chakra-ui/react'
 
 function AddSeoCard() {
   const toast = useToast()
@@ -18,7 +18,7 @@ function AddSeoCard() {
       if (res.status === 200) {
         console.log(res.data)
         toast({
-          title: "Page Created.",
+          title: "SEO Added.",
           description: "We've created a new page for you.",
           status: "success",
           duration: 9000,
@@ -26,10 +26,19 @@ function AddSeoCard() {
         })
       }
     }
-    catch (err) { }
+    catch (err) {
+      console.log(err)
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      })
+    }
   }
   return (
-    <div>
+    <Stack direction={['column', 'column', 'row']}>
       <form
         onSubmit={handleSubmit}
       >
@@ -47,9 +56,14 @@ function AddSeoCard() {
           value={description}
           onChange={e => setDescription(e.target.value)}
         />
-        <input type='submit' value='Create' />
+        <Button type='submit'
+          colorScheme='blue'
+          variant={'solid'}
+        >
+          Add
+        </Button>
       </form>
-    </div>
+    </Stack>
   )
 }
 
