@@ -143,7 +143,7 @@ function Gallery() {
           </Text>
           <SimpleGrid columns={[1, 2, 2]} p={5} spacing={2}>
             {images.map((image, index) => (
-              <Stack>
+              <Stack key={index}>
                 <img
                   className="relative overflow-hidden object-cover w-72 h-full transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
                   key={index} src={image?.url} alt={image?.altText}

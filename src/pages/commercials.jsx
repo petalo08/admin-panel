@@ -89,94 +89,94 @@ function Commercials() {
 
   return (
     <BaseLayout>
-    <Stack
-      direction="row"
-      justify={"flex-end"}
-      align={"center"}
-      position={"sticky"}
-      top={0}
-      bg={"white"}
-      px={4}
-      py={2}
-      rounded={"md"}
-      zIndex={2}
-      shadow={"md"}
-    >
-      <Button
+      <Stack
+        direction="row"
+        justify={"flex-end"}
+        align={"center"}
         position={"sticky"}
         top={0}
-        colorScheme="blue"
-        variant="solid"
-        onClick={() => setShowMyModal(true)}
+        bg={"white"}
+        px={4}
+        py={2}
+        rounded={"md"}
+        zIndex={2}
+        shadow={"md"}
       >
-        Upload Image
-      </Button>
-    </Stack>
-    <Stack
-      shadow={"md"}
-      rounded={"md"}
-      p={5}
-      justify={"space-evenly"}
-      direction={["column", "row", "row"]}
-      spacing={5}
-    >
-      <Stack
-        w={["100%", "100%", "100%"]}
-        direction={["column", "column", "column"]}
-      >
-        <Textarea
-          h="40"
-          placeholder="Add description"
-          value={description}
-          onChange={handleOnChange}
-          size="md"
-        />
         <Button
+          position={"sticky"}
+          top={0}
           colorScheme="blue"
           variant="solid"
-          onClick={() => handleUpdateGallery()}
+          onClick={() => setShowMyModal(true)}
         >
-          Update
+          Upload Image
         </Button>
       </Stack>
       <Stack
-        w={["100%", "100%", "100%"]}
-        direction={["column", "column", "column"]}
+        shadow={"md"}
+        rounded={"md"}
+        p={5}
+        justify={"space-evenly"}
+        direction={["column", "row", "row"]}
+        spacing={5}
       >
-        <Text
-          fontSize={"xl"}
-          fontWeight={"bold"}
-          color={"gray.600"}
-          align={"center"}
+        <Stack
+          w={["100%", "100%", "100%"]}
+          direction={["column", "column", "column"]}
         >
-          Commercials Images
-        </Text>
-        <SimpleGrid columns={[1, 2, 2]} p={5} spacing={2}>
-          {images.map((image, index) => (
-            <Stack>
-              <img
-                className="relative overflow-hidden object-cover w-72 h-full transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
-                key={index}
-                src={image?.url}
-                alt={image?.altText}
-              />
-              <Stack>
-                <Button
-                  w="max-content"
-                  colorScheme="blue"
-                  variant="solid"
-                  onClick={() => handleDeleteImage(index)}
-                >
-                  <AiFillDelete />
-                </Button>
+          <Textarea
+            h="40"
+            placeholder="Add description"
+            value={description}
+            onChange={handleOnChange}
+            size="md"
+          />
+          <Button
+            colorScheme="blue"
+            variant="solid"
+            onClick={() => handleUpdateGallery()}
+          >
+            Update
+          </Button>
+        </Stack>
+        <Stack
+          w={["100%", "100%", "100%"]}
+          direction={["column", "column", "column"]}
+        >
+          <Text
+            fontSize={"xl"}
+            fontWeight={"bold"}
+            color={"gray.600"}
+            align={"center"}
+          >
+            Commercials Images
+          </Text>
+          <SimpleGrid columns={[1, 2, 2]} p={5} spacing={2}>
+            {images.map((image, index) => (
+              <Stack key={index}>
+                <img
+                  className="relative overflow-hidden object-cover w-72 h-full transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
+                  key={index}
+                  src={image?.url}
+                  alt={image?.altText}
+                />
+                <Stack>
+                  <Button
+                    w="max-content"
+                    colorScheme="blue"
+                    variant="solid"
+                    onClick={() => handleDeleteImage(index)}
+                  >
+                    <AiFillDelete />
+                  </Button>
+                </Stack>
               </Stack>
-            </Stack>
-          ))}
-        </SimpleGrid>
+            ))}
+          </SimpleGrid>
+        </Stack>
       </Stack>
-    </Stack>
-    <GalleryModal onClose={handleOnClose} visible={showMyModal} />
-  </BaseLayout>
+      <GalleryModal onClose={handleOnClose} visible={showMyModal} />
+    </BaseLayout>
   )
 }
 
