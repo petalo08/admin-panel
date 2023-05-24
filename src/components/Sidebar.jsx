@@ -61,11 +61,7 @@ const sidebarItems = [
     href: "/admin",
     icon: FaUserCircle,
   },
-  {
-    name: "Users",
-    href: "/users",
-    icon: RiUserLine,
-  },
+  
   {
     name: "Payments",
     href: "/payments",
@@ -82,20 +78,18 @@ const Sidebar = (props) => {
   const user = {
     role: "superadmin"
   }
-  // let user = JSON.parse(props?.cookies?.cookies?.user)
+  
   const userRole = user ? user.role : null;
 
-  // Filter sidebar items based on user role
-  // const filteredSidebarItems = sidebarItems.filter((item) => {
-  //   if (userRole === "superadmin") {
-  //     return true; // Show all items for superadmin
-  //   } else if (userRole === "admin") {
-  //     return item.name !== "Admin"; // Exclude "Admin" item for admin role
-  //   } else if (userRole === "user") {
-  //     return !["Admin", "Users", "Payments"].includes(item.name); // Exclude "Admin", "Users", and "Payments" items for user role
-  //   }
-  //   return true;
-  // });
+  //Filter sidebar items based on user role
+  const filteredSidebarItems = sidebarItems.filter((item) => {
+    if (userRole === "superadmin") {
+      return true; // Show all items for superadmin
+    } else if (userRole === "admin") {
+      return item.name !== "Admin"; // Exclude "Admin" item for admin role
+    } 
+    return true;
+  });
 
   return (
     <div className="sidebar__wrapper">
