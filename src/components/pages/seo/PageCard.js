@@ -1,16 +1,19 @@
 import { Button, Heading, Stack, useToast } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { updateSeoById } from "../../../api/seo";
+import { useRouter } from "next/router";
 
 function PageCard(props) {
+  const router = useRouter()
   const { data } = props
   const toast = useToast();
-  const [loading, setLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false)
+  const [name, setName] = useState("")
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault()
     try {
       setLoading(true)
       let body = {
@@ -18,7 +21,7 @@ function PageCard(props) {
         metaDescription: description,
         pageName: name,
       }
-      console.log( body)
+      console.log(body)
       const res = await updateSeoById(data._id, body)
       if (res.status === 200) {
         toast({
@@ -28,6 +31,7 @@ function PageCard(props) {
           isClosable: true,
         });
         setLoading(false)
+        router.push('/seo')
       }
     } catch (err) {
       console.log(err)
@@ -52,44 +56,47 @@ function PageCard(props) {
 
   return (
     <Stack
-      my={5}
+      my={4}
       bg="white"
       boxShadow="md" borderRadius="md"
-      p={["4", "6"]} spacing={["4", "6"]}
-      onClick={handleUpdate}>
-      <Heading fontSize={["xl", "2xl"]}>{props.name}</Heading>
-      <Stack justify="space-around"
-        direction={["column", "column", "row"]}
-      >
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          type="text"
-          placeholder="Page Name"
-        />
-        <input
-          type="text"
-          placeholder="Page Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Page Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <Button
-          variant="outline"
-          colorScheme="blue"
-          px={["4", "6"]}
-          isLoading={loading}
-          onClick={() => handleUpdate(data._id)}
-          loadingText="Updating"
+      p={["2"]} spacing={["4", "6"]}>
+      <Heading fontSize={['sm','md', "xl"]}>{data.pageName}</Heading>
+      <form onSubmit={handleUpdate}>
+        <Stack justify="space-around"
+          direction={["column", "column", "row"]}
         >
-          Update
-        </Button>
-      </Stack>
+          <input
+            type="text"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="pagename"
+          />
+          <input
+            type="text"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Page Title"
+            name="title"
+          />
+          <input
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            type="text"
+            placeholder="Page Description"
+            name="description"
+          />
+          <Button
+            type="submit"
+            variant="outline"
+            colorScheme="blue"
+            px={["4", "6"]}
+            isLoading={loading}
+            loadingText="Updating"
+          >
+            Update
+          </Button>
+        </Stack>
+      </form>
     </Stack>
   );
 }

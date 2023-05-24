@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { createSeo } from '../../../api/seo'
-import { Button, Stack, useToast } from '@chakra-ui/react'
+import { Button, Heading, Stack, useToast } from '@chakra-ui/react'
 
 function AddSeoCard() {
   const toast = useToast()
   const [name, setName] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     let body = {
       title: title,
       metaDescription: description,
@@ -38,30 +39,41 @@ function AddSeoCard() {
     }
   }
   return (
-    <Stack direction={['column', 'column', 'row']}>
+    <Stack>
+      <Heading
+        fontSize={'2xl'}
+        color={'gray.800'}>
+        Add SEO
+      </Heading>
       <form
         onSubmit={handleSubmit}
       >
-        <input
-          value={name}
-          onChange={e => setName(e.target.value)}
-          type='text'
-          placeholder='Page Name'
-        />
-        <input type='text' placeholder='Page Title'
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-        />
-        <input type='text' placeholder='Page Description'
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-        />
-        <Button type='submit'
-          colorScheme='blue'
-          variant={'solid'}
-        >
-          Add
-        </Button>
+        <Stack
+          justify='flex-start'
+          align={'center'}
+          direction={['column', 'column', 'row']}>
+          <input
+            value={name}
+            onChange={e => setName(e.target.value)}
+            type='text'
+            placeholder='Page Name'
+          />
+          <input type='text' placeholder='Page Title'
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+          />
+          <input type='text' placeholder='Page Description'
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+          />
+          <Button type='submit'
+            colorScheme='blue'
+            variant={'solid'}
+            size={'md'}
+          >
+            Add
+          </Button>
+        </Stack>
       </form>
     </Stack>
   )
