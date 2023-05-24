@@ -12,6 +12,7 @@ import {
 
 const EditTeamMemberModal = (props) => {
   const { isOpen, onOpen, onClose, data } = props
+  console.log(data)
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -52,9 +53,12 @@ const EditTeamMemberModal = (props) => {
                     type="file"
                     name="image"
                     id="image"
+                    
+                    
                     onChange={(e) => setImage(e.target.files[0])}
                     className="border border-gray-700 p-2 rounded"
                   />
+                  <img src={data.image} alt={data.name} />
                 </div>
               </div>
             </form>
