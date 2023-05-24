@@ -95,12 +95,14 @@ function PageCard(props) {
       <form onSubmit={handleUpdate}>
         <Stack justify="space-around" direction={["column", "column", "row"]}>
           <input
+            className="border p-2 rounded-md  "
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="pagename"
           />
           <input
+            className="border p-2 rounded-md"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -108,6 +110,7 @@ function PageCard(props) {
             name="title"
           />
           <input
+            className="border p-2 rounded-md"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             type="text"
