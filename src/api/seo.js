@@ -15,8 +15,8 @@ export const updateSeoById = async (id, body) => {
   return res;
 };
 
-export const createSeo = async () => {
-  const res = await API_INSTANCE.post(`/seo`);
+export const createSeo = async (body) => {
+  const res = await API_INSTANCE.post(`/seo`, body);
   return res;
 };
 

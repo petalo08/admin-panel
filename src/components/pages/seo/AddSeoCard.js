@@ -14,8 +14,9 @@ function AddSeoCard() {
       metaDescription: description,
       pageName: name,
     };
+    console.log(body)
     try {
-      const res = await createSeo(body);
+      const res = await createSeo(body)
       if (res.status === 200) {
         console.log(res.data);
         toast({
@@ -38,7 +39,7 @@ function AddSeoCard() {
     }
   };
   return (
-    <Stack>
+    <Stack direction={['column']}>
       <Heading fontSize={"2xl"} color={"gray.800"}>
         Add SEO
       </Heading>
