@@ -128,7 +128,7 @@ function PageCard(props) {
             >
               Update
             </Button>
-            {/* <Button
+            <Button
               onClick={handleDelete}
               variant="outline"
               colorScheme="blue"
@@ -137,7 +137,7 @@ function PageCard(props) {
               loadingText="Updating"
             >
               Delete
-            </Button> */}
+            </Button>
           </Stack>
         </Stack>
       </form>

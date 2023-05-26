@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { FiSearch } from "react-icons/fi";
-import GalleryModal from "../components/GalleryModal";
-import { getGalleryById, updateGalleryById } from "../api/gallery";
+import { updateGalleryById } from "../api/gallery";
 import BaseLayout from '../layout/BaseLayout';
 import { AiFillDelete } from "react-icons/ai";
 import {
@@ -13,6 +10,8 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
+import { getCommercialsById, updateCommercialsById } from "../api/commercials";
+import CommercialsModal from "../components/pages/commercials/CommercialsModal";
 
 function Commercials() {
   const toast = useToast()
@@ -27,7 +26,7 @@ function Commercials() {
 
   const handleFetchGalleryData = async () => {
     try {
-      const res = await getGalleryById();
+      const res = await getCommercialsById()
       console.log(res.data.data)
       if (res.data) {
         setDescription(res.data.data.description);
@@ -43,7 +42,7 @@ function Commercials() {
       let body = {
         description: description,
       };
-      const res = await updateGalleryById(body);
+      const res = await updateCommercialsById(body);
       if (res.status === 200) {
         alert("Updated successfully");
       }
@@ -175,7 +174,7 @@ function Commercials() {
           </SimpleGrid>
         </Stack>
       </Stack>
-      <GalleryModal onClose={handleOnClose} visible={showMyModal} />
+      <CommercialsModal onClose={handleOnClose} visible={showMyModal} />
     </BaseLayout>
   )
 }
