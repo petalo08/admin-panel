@@ -7,12 +7,10 @@ import {
     Heading,
     Input,
     Stack,
-    Text,
     useToast,
 } from '@chakra-ui/react'
 
 import { HiArrowRight } from 'react-icons/hi'
-import Link from 'next/link'
 import { useCookies } from "react-cookie"
 import { signin, getCurrentUser } from '@/api/auth'
 import { useRouter } from 'next/router'
@@ -21,8 +19,8 @@ const Login = () => {
     const router = useRouter()
     const toast = useToast()
     const [cookie, setCookie] = useCookies()
-    const [email, setEmail] = useState('prakhar@gmail.com')
-    const [password, setPassword] = useState('prakhar@123')
+    const [email, setEmail] = useState('admin@gmail.com')
+    const [password, setPassword] = useState('admin@123')
     const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (event) => {

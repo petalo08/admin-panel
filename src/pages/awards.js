@@ -13,6 +13,7 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
+import { getAwardsById } from "../api/awards";
 
 function Awards() {
   const toast = useToast();
@@ -27,7 +28,7 @@ function Awards() {
 
   const handleFetchGalleryData = async () => {
     try {
-      const res = await getGalleryById();
+      const res = await getAwardsById();
       console.log(res);
       if (res.data) {
         setDescription(res.data.data.description);

@@ -2,7 +2,7 @@ import BaseLayout from "../layout/BaseLayout";
 import React, { useEffect, useState } from "react";
 
 import GalleryModal from "../components/GalleryModal";
-import { getGalleryById, updateGalleryById } from "../api/gallery";
+import { updateGalleryById } from "../api/gallery";
 import { AiFillDelete } from "react-icons/ai";
 import {
   Button,
@@ -12,6 +12,7 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
+import { getEventsById } from "../api/events";
 
 function Events() {
   const toast = useToast();
@@ -26,7 +27,7 @@ function Events() {
 
   const handleFetchGalleryData = async () => {
     try {
-      const res = await getGalleryById();
+      const res = await getEventsById();
       console.log(res);
       if (res.data) {
         setDescription(res.data.data.description);
@@ -150,7 +151,7 @@ function Events() {
             {images.map((image, index) => (
               <Stack key={index}>
                 <img
-                  className="relative overflow-hidden object-cover w-72 h-full transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
+                  className="relative overflow-hidden object-cover w-72 h-48 transform transition-all ease-out duration-500 hover:scale-105 rounded-md"
                   key={index}
                   src={image?.url}
                   alt={image?.altText}

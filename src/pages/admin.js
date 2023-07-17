@@ -37,7 +37,6 @@ export async function getServerSideProps(ctx) {
   }
   try {
     const res = await getAllAdminUsers();
-    // const seo = await getSeoByPageName("teammembers")
     if (res.status == 200) {
       console.log(res.data);
       return {
