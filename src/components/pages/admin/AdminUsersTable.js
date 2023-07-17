@@ -8,7 +8,8 @@ import {
   Td,
   TableContainer,
   useToast,
-  Button
+  Button,
+  Stack
 } from "@chakra-ui/react";
 
 function AdminUsersTable(props) {
@@ -17,9 +18,9 @@ function AdminUsersTable(props) {
   return (
     <Stack>
       <Stack>
-        <Button>
+        {/* <Button>
           Add User
-        </Button>
+        </Button> */}
       </Stack>
       <TableContainer
         shadow={'md'}
