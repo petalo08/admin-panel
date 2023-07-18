@@ -79,11 +79,14 @@ const EditTeamMemberModal = (props) => {
         const res = await updateTeamMemberById(data?._id, {
           name: e.target.name.value,
           designation: e.target.designation.value,
+          image: data.image,
         })
         if (res.status === 200) {
           console.log(res.data)
           toast({
             title: "Details uploaded successfully",
+            position: "top-right",
+            description: "Details uploaded successfully",
             status: "success",
             duration: 3000,
             isClosable: true,
@@ -94,6 +97,7 @@ const EditTeamMemberModal = (props) => {
         console.log(err)
         toast({
           title: "Error",
+          position: "top-right",
           description: "Something went wrong",
           status: "error",
           duration: 3000,

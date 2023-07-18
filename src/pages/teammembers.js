@@ -15,7 +15,6 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { getSeoByPageName } from "../api/seo";
 import { supabase } from "../utils/supabaseClient";
 
 function TeamMembers(props) {
