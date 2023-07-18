@@ -25,7 +25,7 @@ function Events() {
     setDescription(e.target.value);
   };
 
-  const handleFetchGalleryData = async () => {
+  const handleFetchEventsData = async () => {
     try {
       const res = await getEventsById();
       console.log(res);
@@ -45,14 +45,20 @@ function Events() {
       };
       const res = await updateGalleryById(body);
       if (res.status === 200) {
-        alert("Updated successfully");
+        toast({
+          title: "Gallery Updated.",
+          description: "We've updated your gallery.",
+          position: "top-right",
+          status: "success",
+          duration: 3000,
+        });
       }
     } catch (err) {
       console.error(err);
     }
   };
   useEffect(() => {
-    handleFetchGalleryData();
+    handleFetchEventsData();
   }, []);
   const handleDeleteImage = async (index) => {
     try {
@@ -123,7 +129,7 @@ function Events() {
           <Textarea
             h="40"
             placeholder="Add description"
-            value={description}
+            defaultValue={description}
             onChange={handleOnChange}
             size="md"
           />
