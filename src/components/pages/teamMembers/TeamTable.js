@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Table, Thead, Tbody,
   Tr, Th, Td,
@@ -68,7 +68,8 @@ const TeamTable = (props) => {
       setResults(data)
     }
   }
-
+  useEffect(() => {
+  }, [onClose])
   return (
     <>
       <Stack position='sticky'

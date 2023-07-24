@@ -66,11 +66,13 @@ const EditTeamMemberModal = (props) => {
         if (res.status === 200) {
           console.log(res.data)
           toast({
-            title: "Details uploaded successfully",
+            title: "Details updated successfully",
+            position: "top-right",
             status: "success",
             duration: 3000,
             isClosable: true,
           })
+          onClose()
         }
       }
     }
@@ -84,13 +86,14 @@ const EditTeamMemberModal = (props) => {
         if (res.status === 200) {
           console.log(res.data)
           toast({
-            title: "Details uploaded successfully",
+            title: "Details updated successfully",
             position: "top-right",
-            description: "Details uploaded successfully",
+            description: "",
             status: "success",
             duration: 3000,
             isClosable: true,
           })
+          onClose()
         }
       }
       catch (err) {
