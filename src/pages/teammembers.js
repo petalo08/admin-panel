@@ -9,15 +9,16 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import { supabase } from "../utils/supabaseClient";
+import { useRouter } from "next/router";
 
 function TeamMembers(props) {
+  const router = useRouter();
   const toast = useToast();
   const { teamMembers } = props;
   const [image, setImage] = useState(null);

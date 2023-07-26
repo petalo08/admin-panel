@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import Fuse from "fuse.js";
-import { deleteTeamMemberById, updateTeamMemberById } from "../../../api/teamMember";
+import { deleteTeamMemberById } from "../../../api/teamMember";
 import { useRouter } from "next/router";
 import EditTeamMemberModal from "./EditTeamMemberModal";
 
@@ -34,7 +34,7 @@ const TeamTable = (props) => {
   const handleDelete = async (item) => {
     try {
       const res = await deleteTeamMemberById(item._id);
-      if (res.data === 200) {
+      if (res.status === 200) {
         console.log("deleted")
         toast({
           title: 'Success',
@@ -44,6 +44,7 @@ const TeamTable = (props) => {
           isClosable: true,
           position: 'top-right'
         })
+        router.reload()
       }
     }
     catch (err) {

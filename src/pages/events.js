@@ -1,7 +1,7 @@
 import BaseLayout from "../layout/BaseLayout";
 import React, { useEffect, useState } from "react";
 
-import GalleryModal from "../components/GalleryModal";
+import EventModal from "../components/pages/events/EventModal";
 import { updateGalleryById } from "../api/gallery";
 import { AiFillDelete } from "react-icons/ai";
 import {
@@ -177,7 +177,7 @@ function Events() {
           </SimpleGrid>
         </Stack>
       </Stack>
-      <GalleryModal onClose={handleOnClose} visible={showMyModal} />
+      <EventModal onClose={handleOnClose} visible={showMyModal} />
     </BaseLayout>
   );
 }
