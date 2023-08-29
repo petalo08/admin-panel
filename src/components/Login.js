@@ -19,8 +19,8 @@ const Login = () => {
     const router = useRouter()
     const toast = useToast()
     const [cookie, setCookie] = useCookies()
-    const [email, setEmail] = useState('admin@gmail.com')
-    const [password, setPassword] = useState('admin@123')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (event) => {

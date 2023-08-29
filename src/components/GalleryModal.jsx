@@ -24,20 +24,6 @@ export default function Modal({ visible, onClose }) {
       console.log(err)
     }
   }
-  const handleUpdateGallery = async () => {
-    try {
-      let body = {
-        images: images
-      }
-      const res = await updateGalleryById(body)
-      if (res.status === 200) {
-        alert("Updated successfully")
-      }
-    }
-    catch (err) {
-      console.error(err)
-    }
-  }
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
